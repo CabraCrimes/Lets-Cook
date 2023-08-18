@@ -1,13 +1,14 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 export const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <div className="navbar-brand" >
             Navbar
-          </a>
+          </div>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,19 +23,19 @@ export const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <div className="nav-link">
                   Link
-                </a>
+                </div>
               </li>
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  href="..."
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -43,12 +44,12 @@ export const Navbar = () => {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="...">
                       Action
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="...">
                       Another action
                     </a>
                   </li>
@@ -56,14 +57,14 @@ export const Navbar = () => {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="...">
                       Something else here
                     </a>
                   </li>
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link disabled" aria-disabled="true">
+                <a className="nav-link disabled" href="...">
                   Disabled
                 </a>
               </li>
