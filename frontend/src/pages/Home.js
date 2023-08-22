@@ -1,6 +1,6 @@
 import "../styles/Home.css";
 import { Navbar } from "../components/navbar";
-import { getRecipeApi } from "../api/recipeApi";
+// import { getRecipeApi } from "../api/recipeApi";
 // {getRecipeApi()}
 
 function Home() {
