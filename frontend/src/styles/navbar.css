@@ -1,0 +1,9 @@
+.text-link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+  }

@@ -1,17 +1,16 @@
-import '../styles/Home.css';
-import { Navbar } from '../components/navbar';
-import { getRecipeApi } from '../api/recipeApi';
+import "../styles/Home.css";
+import { Navbar } from "../components/navbar";
+import { getRecipeApi } from "../api/recipeApi";
 // {getRecipeApi()}
 
 function Home() {
   return (
-    <div className="Home">
-      <div className='container'>
-        <Navbar/>
-        <h1>Lets Cook</h1>
-
+    <>
+      <Navbar />
+      <div className="Home">
+        <div className="container"></div>
       </div>
-    </div>
+    </>
   );
 }
 
