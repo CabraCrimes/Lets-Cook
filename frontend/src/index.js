@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from 'react-dom/client';
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./index.css";
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css" 
 import Home from "../src/pages/Home";
 import reportWebVitals from "../src/js/reportWebVitals";
 
