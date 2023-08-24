@@ -1,15 +1,22 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
-const RECIPE_ID = process.env.RECIPE_APP_ID;
-const RECIPE_KEY = process.env.RECIPE_APP_KEY;
-const BASE_URL = 'https://api.edamam.com/api/recipes/v2'
+const BASE_URL = "http://127.0.0.1:5000/api";
 
-export const getRecipeApi = async () => {
-    try {
-        const response = await fetch(`${BASE_URL}`);
+export const RecipeApi = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const ingredient = "chicken";
+        const response = await fetch(`${BASE_URL}/recipes/${ingredient}`);
         const data = await response.json();
-        return data
-    } catch (error) {
-        console.error('Error fetching recipes: ', error)
-    }
+        setRecipes(data) ;
+      } catch (error) {
+        console.error("Error fetching recipes: ", error);
+      }
+    };
+    fetchRecipes();
+  }, []);
+  return recipes;
 };

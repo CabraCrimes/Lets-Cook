@@ -1,7 +1,10 @@
 from flask import Blueprint, jsonify, request, Flask
+from flask_cors import CORS
 import requests
 
 api_bp = Blueprint('api', __name__)
+
+CORS(api_bp, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
 @api_bp.route('/recipes/<ingredient>')
 def get_recipes(ingredient):
