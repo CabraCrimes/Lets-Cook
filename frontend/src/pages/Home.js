@@ -1,34 +1,46 @@
+import { useEffect, useState } from "react";
 import "../styles/Home.css";
 import { Navbar } from "../components/navbar";
-import { RecipeApi } from "../api/recipeApi";
+import { fetchRecipes } from "../api/recipeApi";
 import { RecipeCard } from "../components/recipeCard";
 
 function Home() {
-  const recipes = RecipeApi();
+  const [recipeData, setRecipeData] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  if (!recipes || !recipes.hits) {
-    <>
-      <h1>Recipes</h1>
-      <p>Loading...</p>
-    </>;
-  } else {
-    console.log(recipes.hits.map((e) => e.recipe));
-    const recipeData = recipes.hits.map((e) => e.recipe);
-    return (
-      <>
-        <Navbar />
-        <div className="Home">
-          <div className="container">
-            <h1>Recipes</h1>
-            {recipeData.map((newRecipe, index) => {
-              return <p key={index}>{newRecipe.label}</p>
-            })}
-            {/* <RecipeCard key={index} recipe={newRecipe} /> */}
-          </div>
-        </div>
-      </>
-    );
+  const handleSearchTermChange = (newSearchTerm) => {
+    setSearchTerm(newSearchTerm)
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("search term:", searchTerm);
+      const recipes = await fetchRecipes(searchTerm);
+      const data = recipes?.hits?.map((e) => e.recipe) ?? [];
+      console.log(data);
+      setRecipeData(data);
+    };
+    fetchData();
+  }, [searchTerm]);
+
+  return (
+    <>
+      <Navbar onSearchTermChange={handleSearchTermChange} />
+      <div className="container">
+        <h1 className="d-flex justify-content-center my-3 ">Recipes</h1>
+        <div className="row row-cols-1 row-cols-md-3 g-4 ">
+          {recipeData?.map((newRecipe, index) => {
+            return (
+              <RecipeCard
+                key={newRecipe.calories}
+                recipe={newRecipe}
+                index={index}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Home;
