@@ -3,11 +3,28 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "../styles/navbar.css";
+import { fetchRecipes } from "../api/recipeApi";
 
-export const Navbar = () => {
+export const Navbar = ({ onSearchTermChange }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== "") {
+      console.log("search term", searchTerm);
+      try {
+        const data = await fetchRecipes(searchTerm);
+        onSearchTermChange(searchTerm);
+        console.log("onSearchTermChange", onSearchTermChange);
+        console.log("handleSearch", data);
+      } catch (error) {
+        console.error("Error fetching recipes: ", error);
+      }
+    }
+  };
 
   return (
     <>
@@ -43,8 +60,14 @@ export const Navbar = () => {
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button className="btn btn-outline-success" type="submit">
+                <button
+                  className="btn btn-outline-success"
+                  type="submit"
+                  onClick={handleSearch}
+                >
                   Search
                 </button>
               </form>

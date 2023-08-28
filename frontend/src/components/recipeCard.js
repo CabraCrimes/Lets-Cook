@@ -1,58 +1,71 @@
 import React from "react";
 
 export const RecipeCard = (recipe) => {
+  const cuisineNameList = recipe.recipe.cuisineType;
+  const capitilize = ([string]) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  const cuisineName = capitilize(cuisineNameList);
+  console.log(recipe.index);
+  
+  const accordionId = `accordionPanelsStayOpen${recipe.index}`;
   return (
     <>
+    <div className="col d-flex justify-content-center">
       <div className="card" style={{ width: "18rem" }}>
-        <img src={recipe.image} className="card-img-top" alt={recipe.label} />
+        <img
+          src={recipe.recipe.image}
+          className="card-img-top"
+          alt={recipe.recipe.label}
+        />
         <div className="card-body">
-          <h5 className="card-title">{recipe.label}</h5>
-          <p className="card-text">TEST</p>
+          <h5 className="card-title">{recipe.recipe.label}</h5>
+          <p className="card-text">{cuisineName}</p>
         </div>
         <ul className="list-group list-group-flush">
-          <div className="accordion accordion-flush" id="accordionFlushExample">
+          {/* accordion1 */}
+          <div className="accordion accordion-flush" id={accordionId}>
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
-                  className="accordion-button collapsed"
+                  className="accordion-button"
                   type="button"
                   data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseOne"
+                  data-bs-target={`#panelsStayOpen-collapseOne-${recipe.index}`}
                   aria-expanded="false"
-                  aria-controls="flush-collapseOne"
+                  aria-controls={`panelsStayOpen-collapseOne-${recipe.index}`}
                 >
                   Recipe
                 </button>
               </h2>
               <div
-                id="flush-collapseOne"
+                id={`panelsStayOpen-collapseOne-${recipe.index}`}
                 className="accordion-collapse collapse"
-                data-bs-parent="#accordionFlushExample"
+                data-bs-parent={`#${accordionId}`}
               >
                 <div className="accordion-body">
-                  {recipe.ingredientLines.map((ingredientList) => (
-                    <li key={ingredientList.id}>{ingredientList.name}</li>
-                  ))}
+                  <p>{recipe.recipe.ingredientLines}</p>
                 </div>
               </div>
             </div>
-            <div className="accordion-item">
+            {/* accordion2 */}
+            {/* <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
                   className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseTwo"
+                  data-bs-target={`#flush-collapseTwo-${recipe.index}`}
                   aria-expanded="false"
-                  aria-controls="flush-collapseTwo"
+                  aria-controls={`flush-collapseTwo-${recipe.index}`}
                 >
                   Accordion Item #2
                 </button>
               </h2>
               <div
-                id="flush-collapseTwo"
+                id={`flush-collapseTwo-${recipe.index}`} 
                 className="accordion-collapse collapse"
-                data-bs-parent="#accordionFlushExample"
+                data-bs-parent={`#${accordionId}`}
               >
                 <div className="accordion-body">
                   Placeholder content for this accordion, which is intended to
@@ -61,8 +74,9 @@ export const RecipeCard = (recipe) => {
                   filled with some actual content.
                 </div>
               </div>
-            </div>
-            <div className="accordion-item">
+            </div> */}
+            {/* accordion3 */}
+            {/* <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
                   className="accordion-button collapsed"
@@ -90,7 +104,7 @@ export const RecipeCard = (recipe) => {
                   application.
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </ul>
         <div className="card-body">
@@ -101,6 +115,7 @@ export const RecipeCard = (recipe) => {
             Another link
           </a>
         </div>
+      </div>
       </div>
     </>
   );
