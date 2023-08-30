@@ -18,8 +18,7 @@ export const Navbar = ({ onSearchTermChange }) => {
       try {
         const data = await fetchRecipes(searchTerm);
         onSearchTermChange(searchTerm);
-        console.log("onSearchTermChange", onSearchTermChange);
-        console.log("handleSearch", data);
+        console.log("Nav handleSearch", data);
       } catch (error) {
         console.error("Error fetching recipes: ", error);
       }
@@ -28,11 +27,11 @@ export const Navbar = ({ onSearchTermChange }) => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-custom navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <div className="navbar-brand  ms-4 me-5">
             <Link className="text-link" to="/">
-              <h1>Lets Cook</h1>
+              <h1 className="text-light">Lets Cook</h1>
             </Link>
           </div>
           {/* Burger button */}
@@ -73,8 +72,8 @@ export const Navbar = ({ onSearchTermChange }) => {
               </form>
             </ul>
             <div className="nav-item me-5">
-              <Link className="text-link " to="/">
-                Link
+              <Link className="text-link text-light" to="/">
+                Login
               </Link>
             </div>
           </div>
