@@ -7,3 +7,7 @@
     display: flex;
     justify-content: center;
   }
+
+.navbar-custom{
+    background-color:rgb(37, 49, 82) !important;
+}
