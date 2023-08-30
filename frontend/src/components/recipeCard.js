@@ -1,25 +1,33 @@
-import React from "react";
+import "../styles/recipeCard.css";
 
 export const RecipeCard = (recipe) => {
+
   const cuisineNameList = recipe.recipe.cuisineType;
 
-  const shoppingFood = recipe.recipe;
-  console.log(shoppingFood);
+  const TestData = recipe.recipe;
+  console.log(TestData);
 
   const capitalize = (stringArray) => {
-    return stringArray.map(
-      (string) => string.charAt(0).toUpperCase() + string.slice(1)
-    );
+    if (!stringArray) return [];
+    else {
+      return stringArray.map((string) => {
+        if (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1)}
+       else {
+        return "";
+      }
+    });
+    }
   };
 
+  
   const cuisineName = capitalize(cuisineNameList);
-
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
 
   return (
     <>
-      <div className="col d-flex justify-content-center">
-        <div className="card" style={{ width: "18rem" }}>
+      <div className=" justify-content-center">
+        <div className="card " style={{ width: "18rem" }}>
           <img
             src={recipe.recipe.image}
             className="card-img-top"
@@ -77,14 +85,15 @@ export const RecipeCard = (recipe) => {
                   data-bs-parent={`#${accordionId}`}
                 >
                   <div className="accordion-body">
-                    {recipe.recipe.ingredients.map((e,i) => (
+                    {recipe.recipe.ingredients.map((e, i) => (
                       <p key={`${e.food}-${e.foodCategory}-${i}`}>
                         {`${capitalize([e.food])} (${capitalize([
-                          e.foodCategory
+                          e.foodCategory,
                         ])}: `}
                         <a href={e.image} className="card-link">
                           Image
-                        </a>{")"}
+                        </a>
+                        {")"}
                       </p>
                     ))}
                   </div>
@@ -110,17 +119,48 @@ export const RecipeCard = (recipe) => {
                   data-bs-parent={`#${accordionId}`}
                 >
                   <div className="accordion-body">
-                    <p><a href={recipe.recipe.url} className="card-link">{recipe.recipe.source}</a></p>
+                    <p>
+                      <a href={recipe.recipe.url} className="card-link">
+                        {recipe.recipe.source}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* accordion4 */}
+              <div className="accordion-item">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#flush-collapseFour-${recipe.index}`}
+                    aria-expanded="false"
+                    aria-controls={`flush-collapseFour-${recipe.index}`}
+                  >
+                    Nutrition
+                  </button>
+                </h2>
+                <div
+                  id={`flush-collapseFour-${recipe.index}`}
+                  className="accordion-collapse collapse"
+                  data-bs-parent={`#${accordionId}`}
+                >
+                  <div className="accordion-body">
+                    <p>Calories: {Math.round(recipe.recipe.calories)}</p>
+                    <p
+                      key={`${recipe.recipe.calories}-${recipe.recipe.totalWeight}`}
+                    >
+                      {recipe.recipe.healthLabels.join(", ")}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </ul>
           <div className="card-footer text-body-secondary">
-            <a href="..." className="card-link"> 
-              Calories: {Math.round(recipe.recipe.calories)}
-              </a>
-              </div>
+            <a href="..." className="card-link">TEST</a>
+          </div>
         </div>
       </div>
     </>
