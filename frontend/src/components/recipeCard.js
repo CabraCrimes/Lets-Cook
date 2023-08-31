@@ -1,7 +1,6 @@
 import "../styles/recipeCard.css";
 
 export const RecipeCard = (recipe) => {
-
   const cuisineNameList = recipe.recipe.cuisineType;
 
   const TestData = recipe.recipe;
@@ -12,30 +11,29 @@ export const RecipeCard = (recipe) => {
     else {
       return stringArray.map((string) => {
         if (string) {
-        return string.charAt(0).toUpperCase() + string.slice(1)}
-       else {
-        return "";
-      }
-    });
+          return string.charAt(0).toUpperCase() + string.slice(1);
+        } else {
+          return "";
+        }
+      });
     }
   };
 
-  
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
 
   return (
     <>
-      <div className=" justify-content-center">
-        <div className="card " style={{ width: "18rem" }}>
+      <div className="">
+        <div className="card" style={{ width: "18rem" }}>
           <img
             src={recipe.recipe.image}
-            className="card-img-top"
+            className="card-img-top shadow bg-body rounded"
             alt={recipe.recipe.label}
           />
           <div className="card-body">
-            <h5 className="card-title">{recipe.recipe.label}</h5>
-            <p className="card-text">{cuisineName}</p>
+            <h4 className="p card-title">{recipe.recipe.label}</h4>
+            <div className="p card-text">{cuisineName}</div>
           </div>
           <ul className="list-group list-group-flush">
             {/* accordion1 */}
@@ -50,7 +48,10 @@ export const RecipeCard = (recipe) => {
                     aria-expanded="false"
                     aria-controls={`panelsStayOpen-collapseOne-${recipe.index}`}
                   >
-                    <p>{recipe.recipe.ingredientLines.length} Ingredients</p>
+                    <div className="p">
+                      {recipe.recipe.ingredientLines.length} Ingredients
+                    </div>
+                    <div className="ms-3"><i className="fa-solid fa-burger"></i></div>
                   </button>
                 </h2>
                 <div
@@ -58,9 +59,9 @@ export const RecipeCard = (recipe) => {
                   className="accordion-collapse collapse"
                   data-bs-parent={`#${accordionId}`}
                 >
-                  <div className="accordion-body">
+                  <div className="p accordion-body">
                     {recipe.recipe.ingredientLines.map((list, i) => (
-                      <p key={i}>{list}</p>
+                      <div key={i}>{list}</div>
                     ))}
                   </div>
                 </div>
@@ -76,7 +77,8 @@ export const RecipeCard = (recipe) => {
                     aria-expanded="false"
                     aria-controls={`flush-collapseTwo-${recipe.index}`}
                   >
-                    Shopping List
+                    <div className="p"> Shopping List</div>
+                    <div className="ms-3"><i className="fa-solid fa-list-check"></i></div>
                   </button>
                 </h2>
                 <div
@@ -84,9 +86,9 @@ export const RecipeCard = (recipe) => {
                   className="accordion-collapse collapse"
                   data-bs-parent={`#${accordionId}`}
                 >
-                  <div className="accordion-body">
+                  <div className="p accordion-body">
                     {recipe.recipe.ingredients.map((e, i) => (
-                      <p key={`${e.food}-${e.foodCategory}-${i}`}>
+                      <div key={`${e.food}-${e.foodCategory}-${i}`}>
                         {`${capitalize([e.food])} (${capitalize([
                           e.foodCategory,
                         ])}: `}
@@ -94,23 +96,24 @@ export const RecipeCard = (recipe) => {
                           Image
                         </a>
                         {")"}
-                      </p>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
               {/* accordion3 */}
-              <div className="accordion-item">
-                <h2 className="accordion-header">
+              <div className="accordion-item ">
+                <h2 className="accordion-header ">
                   <button
-                    className="accordion-button collapsed"
+                    className="p accordion-button collapsed "
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target={`#flush-collapseThree-${recipe.index}`}
                     aria-expanded="false"
                     aria-controls={`flush-collapseThree-${recipe.index}`}
                   >
-                    Recipe
+                    <div className="p me-2">Recipe</div>
+                    <i className="fa-solid fa-kitchen-set " />
                   </button>
                 </h2>
                 <div
@@ -119,11 +122,11 @@ export const RecipeCard = (recipe) => {
                   data-bs-parent={`#${accordionId}`}
                 >
                   <div className="accordion-body">
-                    <p>
+                    <div className="p">
                       <a href={recipe.recipe.url} className="card-link">
                         {recipe.recipe.source}
                       </a>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -138,7 +141,8 @@ export const RecipeCard = (recipe) => {
                     aria-expanded="false"
                     aria-controls={`flush-collapseFour-${recipe.index}`}
                   >
-                    Nutrition
+                    <div className="p">Nutrition</div>
+                    <div className="ms-3"><i className="fa-solid fa-calculator"></i></div>
                   </button>
                 </h2>
                 <div
@@ -147,23 +151,27 @@ export const RecipeCard = (recipe) => {
                   data-bs-parent={`#${accordionId}`}
                 >
                   <div className="accordion-body">
-                    <p>Calories: {Math.round(recipe.recipe.calories)}</p>
-                    <p
+                    <div className="p">
+                      Calories: {Math.round(recipe.recipe.calories)}
+                    </div>
+                    <div
+                      className="p"
                       key={`${recipe.recipe.calories}-${recipe.recipe.totalWeight}`}
                     >
                       {recipe.recipe.healthLabels.join(", ")}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </ul>
-          <div className="card-footer text-body-secondary">
-            <a href="..." className="card-link">TEST</a>
+          <div className="d-flex justify-content-end card-footer text-body-secondary">
+            <button type="button" className="btn btn-light btn-lg p-0 me-1">
+              <i className="fa-regular fa-heart"></i>
+            </button>
           </div>
         </div>
       </div>
     </>
   );
 };
-
