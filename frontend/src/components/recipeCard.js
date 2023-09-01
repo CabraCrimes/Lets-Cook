@@ -25,7 +25,8 @@ export const RecipeCard = (recipe) => {
   return (
     <>
       <div className="">
-        <div className="card" style={{ width: "18rem" }}>
+        {/* Edit height and use conditionals when accordion is clicked so it can open with out being fixed */}
+        <div className="card" style={{ width: "18rem", height: "42rem" }}>
           <img
             src={recipe.recipe.image}
             className="card-img-top shadow bg-body rounded"
