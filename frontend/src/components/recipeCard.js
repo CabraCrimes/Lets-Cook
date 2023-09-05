@@ -1,7 +1,9 @@
 import "../styles/recipeCard.css";
+import { useState } from "react";
 
 export const RecipeCard = (recipe) => {
   const cuisineNameList = recipe.recipe.cuisineType;
+  const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
 
   const TestData = recipe.recipe;
   console.log(TestData);
@@ -19,14 +21,21 @@ export const RecipeCard = (recipe) => {
     }
   };
 
+  const toggleAccordion = () => {
+    setStyle((prevState) =>
+      prevState.height === "42rem"
+        ? { width: "18rem" }
+        : { width: "18rem", height: "42rem" }
+    );
+  };
+
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
 
   return (
     <>
       <div className="">
-        {/* Edit height and use conditionals when accordion is clicked so it can open with out being fixed */}
-        <div className="card" style={{ width: "18rem", height: "42rem" }}>
+        <div className="card" style={style}>
           <img
             src={recipe.recipe.image}
             className="card-img-top shadow bg-body rounded"
@@ -46,13 +55,16 @@ export const RecipeCard = (recipe) => {
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target={`#panelsStayOpen-collapseOne-${recipe.index}`}
-                    aria-expanded="false"
+                    aria-expanded={style.height === "42rem" ? "true" : "false"}
+                    onClick={toggleAccordion}
                     aria-controls={`panelsStayOpen-collapseOne-${recipe.index}`}
                   >
                     <div className="p">
                       {recipe.recipe.ingredientLines.length} Ingredients
                     </div>
-                    <div className="ms-3"><i className="fa-solid fa-burger"></i></div>
+                    <div className="ms-3">
+                      <i className="fa-solid fa-burger"></i>
+                    </div>
                   </button>
                 </h2>
                 <div
@@ -75,11 +87,14 @@ export const RecipeCard = (recipe) => {
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target={`#flush-collapseTwo-${recipe.index}`}
-                    aria-expanded="false"
+                    aria-expanded={style.height === "42rem" ? "true" : "false"}
+                    onClick={toggleAccordion}
                     aria-controls={`flush-collapseTwo-${recipe.index}`}
                   >
                     <div className="p"> Shopping List</div>
-                    <div className="ms-3"><i className="fa-solid fa-list-check"></i></div>
+                    <div className="ms-3">
+                      <i className="fa-solid fa-list-check"></i>
+                    </div>
                   </button>
                 </h2>
                 <div
@@ -110,7 +125,8 @@ export const RecipeCard = (recipe) => {
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target={`#flush-collapseThree-${recipe.index}`}
-                    aria-expanded="false"
+                    aria-expanded={style.height === "42rem" ? "true" : "false"}
+                    onClick={toggleAccordion}
                     aria-controls={`flush-collapseThree-${recipe.index}`}
                   >
                     <div className="p me-2">Recipe</div>
@@ -139,11 +155,14 @@ export const RecipeCard = (recipe) => {
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target={`#flush-collapseFour-${recipe.index}`}
-                    aria-expanded="false"
+                    aria-expanded={style.height === "42rem" ? "true" : "false"}
+                    onClick={toggleAccordion}
                     aria-controls={`flush-collapseFour-${recipe.index}`}
                   >
                     <div className="p">Nutrition</div>
-                    <div className="ms-3"><i className="fa-solid fa-calculator"></i></div>
+                    <div className="ms-3">
+                      <i className="fa-solid fa-calculator"></i>
+                    </div>
                   </button>
                 </h2>
                 <div
