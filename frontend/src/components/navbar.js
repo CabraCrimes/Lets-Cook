@@ -72,8 +72,8 @@ export const Navbar = ({ onSearchTermChange }) => {
               </form>
             </ul>
             <div className="nav-item me-5">
-              <Link className="text-link text-light" to="/">
-                Login
+              <Link className="text-link text-light" to="register">
+                Login/Register
               </Link>
             </div>
           </div>
@@ -82,3 +82,4 @@ export const Navbar = ({ onSearchTermChange }) => {
     </>
   );
 };
+export default Navbar;
