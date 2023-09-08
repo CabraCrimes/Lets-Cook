@@ -6,6 +6,7 @@ api_bp = Blueprint('api', __name__)
 
 CORS(api_bp, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
+# API EDAMAM
 @api_bp.route('/recipes/<ingredient>')
 def get_recipes(ingredient):
     app_id = '9528e0a9'
@@ -16,4 +17,7 @@ def get_recipes(ingredient):
     data = response.json()
     
     return jsonify(data)
- 
+
+# User Sign-up
+# @api_bp.route('/user', methods=['POST'])
+# def create_user():
