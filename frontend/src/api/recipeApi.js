@@ -15,6 +15,7 @@ export const fetchRecipes = async (ingredient) => {
     if (ingredient) {
       const response = await fetch(`${BASE_URL}/recipes/${ingredient}`);
       const data = await response.json();
+      console.log("data", data)
       return data;
     } else {
       console.log("Ingredient is empty");
