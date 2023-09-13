@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request, Flask
 from flask_cors import CORS
 import requests
 
-api_bp = Blueprint('api', __name__)
+api_bp = Blueprint('api_bp', __name__)
 
 CORS(api_bp, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
@@ -18,6 +18,4 @@ def get_recipes(ingredient):
     
     return jsonify(data)
 
-# User Sign-up
-# @api_bp.route('/user', methods=['POST'])
-# def create_user():
+
