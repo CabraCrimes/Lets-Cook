@@ -1,9 +1,8 @@
-from flask import Flask, jsonify, request
+from flask import Flask
+from flask_migrate import Migrate
+from app.models import db
 from api.api import api_bp
 from routes.routes import api_route
-from .models import db
-from flask_migrate import Migrate
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Bigboobs00%40@localhost/Lets-Cook-Database'
