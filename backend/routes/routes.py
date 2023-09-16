@@ -7,6 +7,9 @@ api_route = Blueprint('api_route', __name__)
 @api_route.route("/create/user", methods=['POST'])
 def create_user():
     data = request.get_json()
+    already_have_email = Users.query.filter_by(email=data["email"]).first()
+    if already_have_email:
+        return jsonify({'message': 'User email already exists'}), 301
     new_user = Users(username = data["username"], email = data["email"], password = data["password"])
     db.session.add(new_user)
     db.session.commit()
