@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/history": "^4.7.9",
     "boostrap": "^2.0.0",
     "bootstrap": "^5.3.1",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
@@ -40,6 +42,8 @@
     ]
   },
   "devDependencies": {
-    "@types/bootstrap": "^5.2.6"
+    "@babel/plugin-proposal-private-property-in-object": "^1.0.6",
+    "@types/bootstrap": "^5.2.6",
+    "dotenv-webpack": "^8.0.1"
   }
 }
