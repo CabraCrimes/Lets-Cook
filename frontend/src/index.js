@@ -8,6 +8,7 @@ import Home from "../src/pages/Home";
 import Register from "../src/pages/register";
 import Login from "../src/pages/login";
 
+
 const root = createRoot(document.getElementById("root"));
 root.render(
   <Router>

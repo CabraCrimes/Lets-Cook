@@ -1,3 +1,5 @@
+console.log("BASE_URL.env", process.env.REACT_APP_BASE_URL)
+console.log(".env", process.env.REACT_APP_RECIPE_APP_KEY)
 export const fetchRecipes = async (ingredient) => {
   try {
     if (ingredient) {
