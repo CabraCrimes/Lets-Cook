@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "../styles/navbar.css";
@@ -8,6 +8,8 @@ import { fetchRecipes } from "../api/recipeApi";
 export const Navbar = ({ onSearchTermChange }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate();
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
@@ -24,6 +26,19 @@ export const Navbar = ({ onSearchTermChange }) => {
       }
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/");
+  };
+console.log("user",user)
+  useEffect(() =>{
+    const token = localStorage.getItem("token")
+    const userData = localStorage.getItem("user")
+    if (token) setUser(userData)
+  }, []);
 
   return (
     <>
@@ -63,7 +78,7 @@ export const Navbar = ({ onSearchTermChange }) => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
-                  className="btn btn-outline-success"
+                  className="btn btn btn-outline-light"
                   type="submit"
                   onClick={handleSearch}
                 >
@@ -71,11 +86,17 @@ export const Navbar = ({ onSearchTermChange }) => {
                 </button>
               </form>
             </ul>
+            {user ? (
+              <>
+                <span className="text-light me-3">Welcome {user}</span>
+                <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
+              </>
+            ):(
             <div className="nav-item me-5">
-              <Link className="text-link text-light" to="register">
-                Login/Register
+              <Link className="text-link text-light" to="login">
+                <button type="button" className="btn btn-outline-light">Login</button>
               </Link>
-            </div>
+            </div>)} 
           </div>
         </div>
       </nav>

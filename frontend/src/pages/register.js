@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  console.log(backendUrl);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
-    uname: "",
+    uusername: "",
     uemail: "",
     upassword: "",
   });
@@ -15,7 +16,7 @@ const Register = () => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
   };
-console.log("URL", backendUrl)
+
   const registerUser = async () => {
     const response = await fetch(backendUrl + "/create/user", {
       method: "POST",
@@ -23,14 +24,14 @@ console.log("URL", backendUrl)
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: userInfo.uname,
+        username: userInfo.uusername,
         email: userInfo.uemail,
-        password: userInfo.upassword
+        password: userInfo.upassword,
       }),
     });
-    
+
     if (response.ok) navigate("/login");
-    else alert("Please provide new email")
+    else alert("Email already in use");
   };
 
   return (
@@ -52,12 +53,11 @@ console.log("URL", backendUrl)
           <div className="form-floating mb-2">
             {/* input for name */}
             <input
-              name="uname"
+              name="uusername"
               type="text"
               className="form-control"
               id="nameForRegister"
-              placeholder="Email address"
-              value={userInfo.uname}
+              value={userInfo.uusername}
               onChange={handleChange}
             />
             <label htmlFor="nameForRegister" className="form-label">
@@ -71,7 +71,6 @@ console.log("URL", backendUrl)
               type="email"
               className="form-control"
               id="emailForRegister"
-              placeholder="Email address"
               value={userInfo.uemail}
               onChange={handleChange}
             />
@@ -88,15 +87,18 @@ console.log("URL", backendUrl)
               id="inputPasswordRegister"
               className="form-control"
               aria-describedby="passwordHelpBlock"
-              placeholder="..."
               onChange={handleChange}
             />
             <label htmlFor="inputPasswordRegister" className="form-label">
-              Password
+              <i className="fa-solid fa-lock"></i>Password
             </label>
           </div>
           <div className="col-12">
-            <button type="submit" className="btn btn-primary mt-2" onClick={() => registerUser()}>
+            <button
+              type="submit"
+              className="btn btn-primary mt-2"
+              onClick={() => registerUser()}
+            >
               Submit
             </button>
           </div>
