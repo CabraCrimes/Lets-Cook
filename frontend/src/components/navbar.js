@@ -8,7 +8,7 @@ import { fetchRecipes } from "../api/recipeApi";
 export const Navbar = ({ onSearchTermChange }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -27,17 +27,26 @@ export const Navbar = ({ onSearchTermChange }) => {
     }
   };
 
+  // Remove quotes etc from the begging and end of strings
+  // const removeQuotes = (string) => {
+  //   if (string && string.startsWith('"') && string.endsWith('"')) {
+  //     return string.slice(0, -1);
+  //   } else return string;
+  // };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
     navigate("/");
   };
-console.log("user",user)
-  useEffect(() =>{
-    const token = localStorage.getItem("token")
-    const userData = localStorage.getItem("user")
-    if (token) setUser(userData)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userDataJson = localStorage.getItem("user");
+    if (userDataJson) {
+      const userData = JSON.parse(userDataJson);
+      if (token) setUser(userData);
+    }
   }, []);
 
   return (
@@ -51,7 +60,7 @@ console.log("user",user)
           </div>
           {/* Burger button */}
           <button
-            className="navbar-toggler"
+            className="navbar-toggler mb-2"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -87,16 +96,29 @@ console.log("user",user)
               </form>
             </ul>
             {user ? (
-              <>
-                <span className="text-light me-3">Welcome {user}</span>
-                <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
-              </>
-            ):(
-            <div className="nav-item me-5">
-              <Link className="text-link text-light" to="login">
-                <button type="button" className="btn btn-outline-light">Login</button>
-              </Link>
-            </div>)} 
+              <div className="d-flex justify-content-between mt-sm-2">
+                <div className="text-light me-3 fs-5 text">Welcome {user}</div>
+                <div className="d-flex justify-content-end">
+                  <button
+                    className="btn btn-outline-light "
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="nav-item me-5">
+                <Link className="text-link text-light" to="login">
+                  <button
+                    type="button"
+                    className="btn btn-outline-light fs-6 text"
+                  >
+                    Login
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>
