@@ -1,13 +1,14 @@
 import "../styles/recipeCard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const RecipeCard = (recipe) => {
   const cuisineNameList = recipe.recipe.cuisineType;
+  const [recipes, setRecipes] = useState(null)
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
+  const [favourites, setFavourites] = useState([])
 
-  const TestData = recipe.recipe;
-  console.log(TestData);
-
+  // const TestData = recipe.recipe;
+  
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
     else {
@@ -21,6 +22,14 @@ export const RecipeCard = (recipe) => {
     }
   };
 
+
+  useEffect(() => {
+    setRecipes( ...favourites)
+  }, [favourites])
+
+  console.log("!!!!!!!!!!!",recipes)
+
+
   const toggleAccordion = () => {
     setStyle((prevState) =>
       prevState.height === "42rem"
@@ -31,10 +40,12 @@ export const RecipeCard = (recipe) => {
 
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
+  console.log("Favourites number:", favourites)
+  
 
   return (
     <>
-      <div className="">
+      <div>
         <div className="card" style={style}>
           <img
             src={recipe.recipe.image}
@@ -74,7 +85,7 @@ export const RecipeCard = (recipe) => {
                 >
                   <div className="p accordion-body">
                     {recipe.recipe.ingredientLines.map((list, i) => (
-                      <div key={i}>{list}</div>
+                      <div key={recipe.recipe.calories + i }>{list}</div>
                     ))}
                   </div>
                 </div>
@@ -186,7 +197,20 @@ export const RecipeCard = (recipe) => {
             </div>
           </ul>
           <div className="d-flex justify-content-end card-footer text-body-secondary">
-            <button type="button" className="btn btn-light btn-lg p-0 me-1">
+          <button type="button" className={" border border-0 btn " + (favourites.some(e => e.label === recipe.recipe.label) ? "btn-outline-primary btn-lg p-0 me-1" : "btn-primary btn-lg p-0 me-1")}
+              onClick={() => {
+                if (favourites.some(e => e.label === recipe.recipe.label)) {
+                  setFavourites((prevFav) => {
+                    return prevFav.filter(fav =>  {
+                      return fav.label !== recipe.recipe.label
+                    } )
+                  })
+                }
+                // FIX THE CODE DOWN HERE SO I DONT HAVE TO USE A USEFFECT
+                else {
+                  setFavourites(prevFav => [...prevFav, recipe.recipe]);
+                }
+              }}>
               <i className="fa-regular fa-heart"></i>
             </button>
           </div>
@@ -195,3 +219,5 @@ export const RecipeCard = (recipe) => {
     </>
   );
 };
+
+
