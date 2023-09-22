@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 
 export const RecipeCard = (recipe) => {
   const cuisineNameList = recipe.recipe.cuisineType;
-  const [recipes, setRecipes] = useState(null)
+  // const [recipes, setRecipes] = useState(null);
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
-  const [favourites, setFavourites] = useState([])
+  const [favourites, setFavourites] = useState([]);
+  // const favVariable = favourites.map(e => e.recipe.url)
 
   // const TestData = recipe.recipe;
-  
+
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
     else {
@@ -21,14 +22,25 @@ export const RecipeCard = (recipe) => {
       });
     }
   };
-
-
-  useEffect(() => {
-    setRecipes( ...favourites)
-  }, [favourites])
-
-  console.log("!!!!!!!!!!!",recipes)
-
+  
+  // useEffect(() => {
+  //   setRecipes( ...favourites)
+  // }, [favourites])
+  
+  // Put const isFav = favourites.some((fav) => fav.url === recipe.url); in a useState and then use a useState so the buttons change properly
+  const toggleFavourites = (recipe) => {
+    const isFav = favourites.some((fav) => fav.url === recipe.url);
+    console.log(recipe.recipe)
+    console.log("recipe.recipe",recipe.url)
+    if (isFav) {
+      console.log("TRUE!!!!")
+      //Remove favourite
+        setFavourites(prevFav =>  prevFav.filter(fav => fav.url !== recipe.url));
+    }else {
+      console.log("FALSE!!!!", recipe)
+      setFavourites((prevFav) => [...prevFav, recipe ]);
+    }
+  };
 
   const toggleAccordion = () => {
     setStyle((prevState) =>
@@ -40,8 +52,20 @@ export const RecipeCard = (recipe) => {
 
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
-  console.log("Favourites number:", favourites)
-  
+
+  // if (favourites.some((e) => e.url === recipe.recipe.url)) {
+  //   console.log("FAVOURIETS CONDITION:",true)
+  //   //Remove favourite
+  //   // setFavourites(prevFav =>  prevFav.filter(fav => fav.url !== recipe.recipe.url));
+  // }else{
+  //   console.log("FAVOURIETS CONDITION:",false)
+  // }
+
+  // console.log("Recipe",recipe.recipe)
+  // console.log("Favourites number:", favourites.length);
+  // console.log("Favourite Object:", favourites)
+  // favourites.some((e) => console.log("FAV URL:",e.url))
+  console.log("Favourites!!",favourites)
 
   return (
     <>
@@ -85,7 +109,7 @@ export const RecipeCard = (recipe) => {
                 >
                   <div className="p accordion-body">
                     {recipe.recipe.ingredientLines.map((list, i) => (
-                      <div key={recipe.recipe.calories + i }>{list}</div>
+                      <div key={`${recipe.recipe.food}-${recipe.recipe.foodCategory}-${i}`}>{list}</div>
                     ))}
                   </div>
                 </div>
@@ -197,20 +221,13 @@ export const RecipeCard = (recipe) => {
             </div>
           </ul>
           <div className="d-flex justify-content-end card-footer text-body-secondary">
-          <button type="button" className={" border border-0 btn " + (favourites.some(e => e.label === recipe.recipe.label) ? "btn-outline-primary btn-lg p-0 me-1" : "btn-primary btn-lg p-0 me-1")}
-              onClick={() => {
-                if (favourites.some(e => e.label === recipe.recipe.label)) {
-                  setFavourites((prevFav) => {
-                    return prevFav.filter(fav =>  {
-                      return fav.label !== recipe.recipe.label
-                    } )
-                  })
-                }
-                // FIX THE CODE DOWN HERE SO I DONT HAVE TO USE A USEFFECT
-                else {
-                  setFavourites(prevFav => [...prevFav, recipe.recipe]);
-                }
-              }}>
+            <button
+              type="button"
+              className={
+                " border border-0 btn " + (favVariable[0] === recipe.recipe.url ? "btn-primary btn-lg p-0 me-1" : "btn-outline-primary btn-lg p-0 me-1")
+              }
+              onClick={() => toggleFavourites(recipe.recipe)}
+            >
               <i className="fa-regular fa-heart"></i>
             </button>
           </div>
@@ -219,5 +236,3 @@ export const RecipeCard = (recipe) => {
     </>
   );
 };
-
-
