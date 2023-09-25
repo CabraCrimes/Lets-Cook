@@ -6,6 +6,7 @@ export const RecipeCard = (recipe) => {
   // const [recipes, setRecipes] = useState(null);
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
   const [favourites, setFavourites] = useState([]);
+  const [isFav, setIsFav] = useState();
   // const favVariable = favourites.map(e => e.recipe.url)
 
   // const TestData = recipe.recipe;
@@ -23,15 +24,29 @@ export const RecipeCard = (recipe) => {
     }
   };
   
-  // useEffect(() => {
-  //   setRecipes( ...favourites)
-  // }, [favourites])
+  useEffect(() => {
+    setIsFav(favourites.some((fav) => fav.url === recipe.recipe.url))
+    }, [favourites, recipe.recipe.url])
+
+  const saveFavourites = async (favourites) => {
+    try {
+      if(favourites){
+      const response = await fetch()
+    }else{
+      console.log("favourites empty")
+      return null
+    }
+    } catch (error) {
+      console.error("Error fetching favourites: ", error);
+      return null
+    }
+  }
+    
+    console.log("isFav", isFav)
   
   // Put const isFav = favourites.some((fav) => fav.url === recipe.url); in a useState and then use a useState so the buttons change properly
   const toggleFavourites = (recipe) => {
-    const isFav = favourites.some((fav) => fav.url === recipe.url);
-    console.log(recipe.recipe)
-    console.log("recipe.recipe",recipe.url)
+    // const isFav = favourites.some((fav) => fav.url === recipe.url);
     if (isFav) {
       console.log("TRUE!!!!")
       //Remove favourite
@@ -224,7 +239,7 @@ export const RecipeCard = (recipe) => {
             <button
               type="button"
               className={
-                " border border-0 btn " + (favVariable[0] === recipe.recipe.url ? "btn-primary btn-lg p-0 me-1" : "btn-outline-primary btn-lg p-0 me-1")
+                " border border-0 btn " + (isFav ? "btn-primary btn-lg p-0 me-1" : "btn-outline-primary btn-lg p-0 me-1")
               }
               onClick={() => toggleFavourites(recipe.recipe)}
             >
