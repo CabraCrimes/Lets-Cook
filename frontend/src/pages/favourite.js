@@ -1,36 +1,42 @@
 import { useEffect, useState } from "react";
 import "../styles/Home.css";
 import { Navbar } from "../components/navbar";
-import { fetchRecipes } from "../api/recipeApi";
 // import {backgroundImage} from "../assets/Home/backgroundImage.jpg"
 import { RecipeCard } from "../components/recipeCard";
+import { favouriteApi } from "../api/favouriteApi";
+import { backendFavouritesApi } from "../api/backEndFavouritesApi";
 
 function Favourites() {
   const [recipeData, setRecipeData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [favourite, setFavourite] = useState("")
 
+// need to make a fetch to the backend to we can get all the favourites and put these favourites in reipeData
   const handleSearchTermChange = (newSearchTerm) => {
     setSearchTerm(newSearchTerm);
   };
+
+  
   useEffect(() => {
+    setFavourite(backendFavouritesApi())
     const fetchData = async () => {
-      console.log("search term:", searchTerm);
-      const recipes = await fetchRecipes(searchTerm); //Add the backend favourtes path here.
+      // console.log("Favourites search term:", );
+      const recipes = await favouriteApi(favourite);
       const data = recipes?.hits?.map((e) => e.recipe) ?? [];
       console.log(data);
       setRecipeData(data);
     };
     fetchData();
-  }, [searchTerm]);
+  }, [favourite]);
 
   return (
     <div className="background min-vh-100">
-      <Navbar onSearchTermChange={handleSearchTermChange} />
+      <Navbar onChange={handleSearchTermChange} />
       <div className="container container-with-background">
         <div className="d-flex">
         <h1 className="d-flex justify-content-start my-3 me-2 ">Recipes</h1>
         {/* this needs to be a component */}
-          <nav aria-label="Page navigation example ">
+          {/* <nav aria-label="Page navigation example ">
             <ul className="pagination mt-4">
               <li className="page-item">
                 <a className="page-link" href="..." aria-label="Previous">
@@ -58,7 +64,7 @@ function Favourites() {
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </div>
         <div className="d-grid gap-4 d-flex flex-wrap ">
           {recipeData?.map((newRecipe, index) => {

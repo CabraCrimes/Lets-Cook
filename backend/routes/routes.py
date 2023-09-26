@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import Users, db
+from app.models import Users, Favourites, db
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -65,5 +65,30 @@ def login():
     user = Users.query.filter_by(email=data["email"], password=data["password"]).first()
     if user:
         token = create_access_token(identity=user.id)
-        return jsonify({'token': token, 'user': user.username})
+        return jsonify({'token': token, 'user': user.username, 'id': user.id})
     return  jsonify({'message': "No matching user"}),200
+
+# Add favourite
+@api_route.route("/add/favourite", methods=['POST'])
+def add_favourite():
+    data = request.get_json()
+
+    existing_favourite = Favourites.query.filter_by(user_id=data['user_id'], recipe_label=data['recipe_label']).first()
+    if existing_favourite:
+        return jsonify({'message': "Favourite already exists"}),200
+    
+    user_favourite = Favourites.query.filter_by(user_id=data['user_id'], recipe_label=data['recipe_label']).first()
+    db.session.add(user_favourite)
+    db.session.commit()
+    return jsonify({'message': 'Favourite added'})
+        
+# Get Favourite
+@api_route.route("/get/<favourite>", methods=['GET'])
+@jwt_required()
+def get_favourite(favourite):
+    current_user_id = get_jwt_identity()
+    user_favourite = Favourites.query.filter_by(user_id=current_user_id).all()
+    favourite_list = []
+    for favourite in user_favourite:
+        favourite_list.append({'id':favourite.id ,'recipe_label': favourite.recipe_label})
+    return jsonify({'favourite': favourite_list})

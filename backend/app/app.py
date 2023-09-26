@@ -3,12 +3,15 @@ from flask_migrate import Migrate
 from app.models import db
 from api.api import api_bp
 from routes.routes import api_route
+from decouple import config 
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Bigboobs00%40@localhost/Lets-Cook-Database'
+sql_database_uri = config('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = sql_database_uri
 
-app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+jwt_key = config('JWT_SECRET_KEY')
+app.config["JWT_SECRET_KEY"] = jwt_key  
 jwt = JWTManager(app)
 
 db.init_app(app)

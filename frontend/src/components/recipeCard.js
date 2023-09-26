@@ -6,10 +6,8 @@ export const RecipeCard = (recipe) => {
   // const [recipes, setRecipes] = useState(null);
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
   const [favourites, setFavourites] = useState([]);
-  const [isFav, setIsFav] = useState();
+  const [isFav, setIsFav] = useState(false);
   // const favVariable = favourites.map(e => e.recipe.url)
-
-  // const TestData = recipe.recipe;
 
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
@@ -24,36 +22,59 @@ export const RecipeCard = (recipe) => {
     }
   };
   
+  // Figure out how to get is fav to become true or false and why its not
+  console.log("!!!!!!!!!!!!!!!3",favourites.some((fav) => fav.url === recipe.recipe.url))
   useEffect(() => {
-    setIsFav(favourites.some((fav) => fav.url === recipe.recipe.url))
-    }, [favourites, recipe.recipe.url])
+    if (!isFav){
+      return setIsFav(favourites.some((fav) => fav?.url === recipe.recipe.url));
+    }else return;
+  }, [favourites, isFav, recipe]);
 
   const saveFavourites = async (favourites) => {
     try {
-      if(favourites){
-      const response = await fetch()
-    }else{
-      console.log("favourites empty")
-      return null
-    }
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+      if (favourites) {
+        const response = await fetch(
+          process.env.REACT_APP_BACKEND_URL + "add/favourite",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              recipe_label: favourites,
+              user_id: userId,
+            }),
+          }
+        );
+        if (response.ok) {
+          console.log("Favorite saved!");
+        } else {
+          console.error("Failed to save favourite");
+        }
+      } else {
+        console.log("Recipe data is empty");
+      }
     } catch (error) {
       console.error("Error fetching favourites: ", error);
-      return null
     }
-  }
-    
-    console.log("isFav", isFav)
+    console.log("isFav", isFav);
+  };
   
-  // Put const isFav = favourites.some((fav) => fav.url === recipe.url); in a useState and then use a useState so the buttons change properly
   const toggleFavourites = (recipe) => {
-    // const isFav = favourites.some((fav) => fav.url === recipe.url);
     if (isFav) {
-      console.log("TRUE!!!!")
+      console.log("TRUE Remove Favourites");
       //Remove favourite
-        setFavourites(prevFav =>  prevFav.filter(fav => fav.url !== recipe.url));
-    }else {
-      console.log("FALSE!!!!", recipe)
-      setFavourites((prevFav) => [...prevFav, recipe ]);
+      setFavourites((prevFav) => {
+        console.log("!!!!!!!!!!!!!!",prevFav.filter((fav) => fav.label !== recipe.label))
+       return prevFav.filter((fav) => fav.label !== recipe.label)
+      }
+      );
+      saveFavourites();
+    } else {
+      //Add favourites
+      console.log("FALSE Add Favourites", recipe.label);
+      setFavourites((prevFav) => [...prevFav, recipe.label]);
     }
   };
 
@@ -68,19 +89,7 @@ export const RecipeCard = (recipe) => {
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
 
-  // if (favourites.some((e) => e.url === recipe.recipe.url)) {
-  //   console.log("FAVOURIETS CONDITION:",true)
-  //   //Remove favourite
-  //   // setFavourites(prevFav =>  prevFav.filter(fav => fav.url !== recipe.recipe.url));
-  // }else{
-  //   console.log("FAVOURIETS CONDITION:",false)
-  // }
-
-  // console.log("Recipe",recipe.recipe)
-  // console.log("Favourites number:", favourites.length);
-  // console.log("Favourite Object:", favourites)
-  // favourites.some((e) => console.log("FAV URL:",e.url))
-  console.log("Favourites!!",favourites)
+  console.log("Favourites!", favourites);
 
   return (
     <>
@@ -124,7 +133,11 @@ export const RecipeCard = (recipe) => {
                 >
                   <div className="p accordion-body">
                     {recipe.recipe.ingredientLines.map((list, i) => (
-                      <div key={`${recipe.recipe.food}-${recipe.recipe.foodCategory}-${i}`}>{list}</div>
+                      <div
+                        key={`${recipe.recipe.food}-${recipe.recipe.foodCategory}-${i}`}
+                      >
+                        {list}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -239,7 +252,10 @@ export const RecipeCard = (recipe) => {
             <button
               type="button"
               className={
-                " border border-0 btn " + (isFav ? "btn-primary btn-lg p-0 me-1" : "btn-outline-primary btn-lg p-0 me-1")
+                " border border-0 btn " +
+                (isFav
+                  ? "btn-primary btn-lg p-0 me-1"
+                  : "btn-outline-primary btn-lg p-0 me-1")
               }
               onClick={() => toggleFavourites(recipe.recipe)}
             >
