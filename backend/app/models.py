@@ -8,12 +8,13 @@ class Users (db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
 
-    favourites = db.relationship('Favourites', backref='users' lazy=True)
+    favourites = db.relationship('Favourites', backref='users', lazy=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
     
     
 class Favourites (db.Model):
-    id = db.Column(db.Interger, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     recipe_label = db.Column(db.String(140), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
