@@ -16,5 +16,5 @@ class Users (db.Model):
     
 class Favourites (db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    recipe_label = db.Column(db.String(140), nullable=False)
+    favourite_JSON = db.Column(db.String(3000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)

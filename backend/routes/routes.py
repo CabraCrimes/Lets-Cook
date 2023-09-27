@@ -73,22 +73,30 @@ def login():
 def add_favourite():
     data = request.get_json()
 
-    existing_favourite = Favourites.query.filter_by(user_id=data['user_id'], recipe_label=data['recipe_label']).first()
+    existing_favourite = Favourites.query.filter_by(user_id=data['user_id'], favourite_JSON=data['favourite_JSON']).first()
     if existing_favourite:
         return jsonify({'message': "Favourite already exists"}),200
     
-    user_favourite = Favourites.query.filter_by(user_id=data['user_id'], recipe_label=data['recipe_label']).first()
+    user_favourite = Favourites.query.filter_by(user_id=data['user_id'], favourite_JSON=data['favourite_JSON']).first()
     db.session.add(user_favourite)
     db.session.commit()
     return jsonify({'message': 'Favourite added'})
         
 # Get Favourite
-@api_route.route("/get/<favourite>", methods=['GET'])
+@api_route.route("/get/favourite", methods=['GET'])
 @jwt_required()
-def get_favourite(favourite):
+def get_favourite():
     current_user_id = get_jwt_identity()
     user_favourite = Favourites.query.filter_by(user_id=current_user_id).all()
     favourite_list = []
     for favourite in user_favourite:
-        favourite_list.append({'id':favourite.id ,'recipe_label': favourite.recipe_label})
+        favourite_list.append({'id':favourite.id ,'favourite_JSON': favourite.favourite_JSON})
     return jsonify({'favourite': favourite_list})
+
+# Delete Favourites
+@api_route.route("/favourite/delete/<int:favourite_id>", methods=['DELETE'])
+def delete_favourite(favourite_id):
+    favourite = Favourites.query.get_or_404(favourite_id)
+    db.session.delete(favourite)
+    db.session.commit()
+    return jsonify({'message': 'Favourite deleted'})

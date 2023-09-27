@@ -18,15 +18,19 @@ function Favourites() {
 
   
   useEffect(() => {
-    setFavourite(backendFavouritesApi())
-    const fetchData = async () => {
+    setFavourite(() => {
+    const favourites = JSON.parse(backendFavouritesApi())
+    return favourites;
+    });
+
+    // const fetchData = async () => {
       // console.log("Favourites search term:", );
-      const recipes = await favouriteApi(favourite);
-      const data = recipes?.hits?.map((e) => e.recipe) ?? [];
-      console.log(data);
-      setRecipeData(data);
-    };
-    fetchData();
+      // const recipes = await favouriteApi(favourite);
+      // const data = recipes?.hits?.map((e) => e.recipe) ?? [];
+      // console.log(data);
+      // setRecipeData(data);
+    // };
+    // fetchData();
   }, [favourite]);
 
   return (
@@ -67,7 +71,7 @@ function Favourites() {
           </nav> */}
         </div>
         <div className="d-grid gap-4 d-flex flex-wrap ">
-          {recipeData?.map((newRecipe, index) => {
+          {favourite?.map((newRecipe, index) => {
             return (
               <RecipeCard
                 key={newRecipe.calories}

@@ -7,8 +7,7 @@ export const RecipeCard = (recipe) => {
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
   const [favourites, setFavourites] = useState([]);
   const [isFav, setIsFav] = useState(false);
-  // const favVariable = favourites.map(e => e.recipe.url)
-
+  
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
     else {
@@ -23,17 +22,17 @@ export const RecipeCard = (recipe) => {
   };
   
   // Figure out how to get is fav to become true or false and why its not
-  console.log("!!!!!!!!!!!!!!!3",favourites.some((fav) => fav.url === recipe.recipe.url))
+ 
   useEffect(() => {
-    if (!isFav){
-      return setIsFav(favourites.some((fav) => fav?.url === recipe.recipe.url));
-    }else return;
-  }, [favourites, isFav, recipe]);
+    const hasFavorites = (favourites ?? []).length > 0;
+    setIsFav(hasFavorites)
+  }, [favourites, isFav]);
 
   const saveFavourites = async (favourites) => {
     try {
       const userId = JSON.parse(localStorage.getItem("user")).id;
       if (favourites) {
+        const favouriteJSON =  JSON.stringify(favourites)
         const response = await fetch(
           process.env.REACT_APP_BACKEND_URL + "add/favourite",
           {
@@ -42,7 +41,7 @@ export const RecipeCard = (recipe) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              recipe_label: favourites,
+              favourite_JSON: favouriteJSON,
               user_id: userId,
             }),
           }
@@ -58,23 +57,18 @@ export const RecipeCard = (recipe) => {
     } catch (error) {
       console.error("Error fetching favourites: ", error);
     }
-    console.log("isFav", isFav);
   };
   
   const toggleFavourites = (recipe) => {
     if (isFav) {
-      console.log("TRUE Remove Favourites");
+    console.log("TRUE: Remove Favourites");
       //Remove favourite
-      setFavourites((prevFav) => {
-        console.log("!!!!!!!!!!!!!!",prevFav.filter((fav) => fav.label !== recipe.label))
-       return prevFav.filter((fav) => fav.label !== recipe.label)
-      }
-      );
-      saveFavourites();
+      setFavourites(prevFav => prevFav.filter(filterFav => filterFav !== recipe))
     } else {
       //Add favourites
-      console.log("FALSE Add Favourites", recipe.label);
-      setFavourites((prevFav) => [...prevFav, recipe.label]);
+      console.log("FALSE: Add Favourites");
+      setFavourites((prevFav) => [...prevFav, recipe]);
+      // saveFavourites(favourites); <----------------------------------------
     }
   };
 
@@ -89,7 +83,9 @@ export const RecipeCard = (recipe) => {
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
 
-  console.log("Favourites!", favourites);
+  const test = JSON.stringify(favourites)
+  console.log("Favourites!", test.length);
+  console.log("IsFav", isFav)
 
   return (
     <>
