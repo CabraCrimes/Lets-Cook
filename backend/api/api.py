@@ -20,14 +20,14 @@ def get_recipes(ingredient):
     return jsonify(data)
 
 # Get Favourite From EDAMAM
-@api_bp.route('/recipes/favourite/<favourite>')
-def get_favourite(favourite):
-    app_id = config('API_ID')
-    app_key = config('API_KEY')
-    api_url = f'https://api.edamam.com/search?q={favourite}&app_id={app_id}&app_key={app_key}'
+# @api_bp.route('/recipes/favourite/<favourite>')
+# def get_favourite(favourite):
+#     app_id = config('API_ID')
+#     app_key = config('API_KEY')
+#     api_url = f'https://api.edamam.com/search?q={favourite}&app_id={app_id}&app_key={app_key}'
     
-    response = requests.get(api_url)
-    data = response.json()
+#     response = requests.get(api_url)
+#     data = response.json()
     
-    return jsonify(data)
+#     return jsonify(data)
 
