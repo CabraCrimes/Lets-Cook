@@ -7,7 +7,7 @@ from flask_jwt_extended import jwt_required
 
 api_route = Blueprint('api_route', __name__)
 
-CORS(api_route, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+CORS(api_route, resources={r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:5000"]}})
 
 #Create a user
 @api_route.route("/create/user", methods=['POST'])
@@ -70,6 +70,7 @@ def login():
 
 # Add favourite
 @api_route.route("/add/favourite", methods=['POST'])
+@jwt_required()
 def add_favourite():
     data = request.get_json()
 
@@ -77,8 +78,8 @@ def add_favourite():
     if existing_favourite:
         return jsonify({'message': "Favourite already exists"}),200
     
-    user_favourite = Favourites.query.filter_by(user_id=data['user_id'], favourite_JSON=data['favourite_JSON']).first()
-    db.session.add(user_favourite)
+    new_favourite = Favourites(user_id=data['user_id'], favourite_JSON=data['favourite_JSON'])
+    db.session.add(new_favourite)
     db.session.commit()
     return jsonify({'message': 'Favourite added'})
         

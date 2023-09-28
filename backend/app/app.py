@@ -4,9 +4,11 @@ from app.models import db
 from api.api import api_bp
 from routes.routes import api_route
 from decouple import config 
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
+CORS(app)
 sql_database_uri = config('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_DATABASE_URI'] = sql_database_uri
 
