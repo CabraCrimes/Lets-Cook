@@ -21,8 +21,6 @@ export const RecipeCard = (recipe) => {
     }
   };
   
-  // Figure out how to get is fav to become true or false and why its not
- 
   useEffect(() => {
     const hasFavorites = (favourites ?? []).length > 0;
     setIsFav(hasFavorites)
@@ -30,14 +28,17 @@ export const RecipeCard = (recipe) => {
 
   const saveFavourites = async (favourites) => {
     try {
-      const userId = JSON.parse(localStorage.getItem("user")).id;
+      const userId = JSON.parse(localStorage.getItem("id"));
+      const token = localStorage.getItem("token");
+      console.log("FaVoUrItEs ",userId)
       if (favourites) {
         const favouriteJSON =  JSON.stringify(favourites)
         const response = await fetch(
-          process.env.REACT_APP_BACKEND_URL + "add/favourite",
+          process.env.REACT_APP_BACKEND_URL + "/add/favourite",
           {
             method: "POST",
             headers: {
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -68,7 +69,7 @@ export const RecipeCard = (recipe) => {
       //Add favourites
       console.log("FALSE: Add Favourites");
       setFavourites((prevFav) => [...prevFav, recipe]);
-      // saveFavourites(favourites); <----------------------------------------
+      saveFavourites(recipe);
     }
   };
 

@@ -37,6 +37,8 @@ export const Navbar = ({ onSearchTermChange }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("favourites");
+    localStorage.removeItem("id");
     setUser(null);
     navigate("/");
   };
@@ -96,6 +98,7 @@ export const Navbar = ({ onSearchTermChange }) => {
               </form>
             </ul>
             {user ? (
+              // Create a drop down here
               <div className="d-flex justify-content-between mt-sm-2">
                 <div className="text-light me-3 fs-5 text">Welcome {user}</div>
                 <div className="d-flex justify-content-end">
@@ -105,11 +108,19 @@ export const Navbar = ({ onSearchTermChange }) => {
                   >
                     Logout
                   </button>
+                  <Link className="text-link" to="favourites">
+                    <button
+                      type="button"
+                      className="btn btn-outline-light fs-6 text ms-2 me-3"
+                    >
+                      Favorites
+                    </button>
+                  </Link>
                 </div>
               </div>
             ) : (
               <div className="nav-item me-5">
-                <Link className="text-link text-light" to="login">
+                <Link className="text-link" to="login">
                   <button
                     type="button"
                     className="btn btn-outline-light fs-6 text"
