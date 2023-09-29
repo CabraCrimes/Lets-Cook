@@ -6,7 +6,7 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 
 api_route = Blueprint('api_route', __name__)
-
+                                                                            
 CORS(api_route, resources={r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:5000"]}})
 
 #Create a user
@@ -91,7 +91,7 @@ def get_favourite():
     user_favourite = Favourites.query.filter_by(user_id=current_user_id).all()
     favourite_list = []
     for favourite in user_favourite:
-        favourite_list.append({'id':favourite.id ,'favourite_JSON': favourite.favourite_JSON})
+        favourite_list.append({'id': favourite.id ,'favourite_JSON': favourite.favourite_JSON})
     return jsonify({'favourite': favourite_list})
 
 # Delete Favourites
