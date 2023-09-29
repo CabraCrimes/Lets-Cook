@@ -1,9 +1,10 @@
 import "../styles/recipeCard.css";
 import { useEffect, useState } from "react";
 
-export const RecipeCard = (recipe) => {
+export const FavouriteRecipeCard = (recipe) => {
+
+        
   const cuisineNameList = recipe.recipe.cuisineType;
-  // const [recipes, setRecipes] = useState(null);
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
   const [favourites, setFavourites] = useState([]);
   const [isFav, setIsFav] = useState(false);
@@ -26,53 +27,46 @@ export const RecipeCard = (recipe) => {
     setIsFav(hasFavorites);
   }, [favourites, isFav]);
 
-  const saveFavourites = async (favourites) => {
+  const deleteFavourites = async (favouriteId) => {
     try {
       const userId = JSON.parse(localStorage.getItem("id"));
       const token = localStorage.getItem("token");
-      if (favourites) {
-        const favouriteJSON = JSON.stringify(favourites);
-        const response = await fetch(
-          process.env.REACT_APP_BACKEND_URL + "/add/favourite",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              favourite_JSON: favouriteJSON,
-              user_id: userId,
-            }),
-          }
-        );
-        if (response.ok) {
-          console.log("Favorite saved!");
-        } else {
-          console.error("Failed to save favourite");
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/favourite/delete/${favouriteId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: userId,
+          }),
         }
+      );
+      if (response.ok) {
+        console.log("Favorite removed!");
       } else {
-        console.log("Recipe data is empty");
+        console.error("Failed to removefavourite");
       }
     } catch (error) {
-      console.error("Error fetching favourites: ", error);
+      console.error("Error removing favourites: ", error);
     }
   };
 
-  const toggleFavourites = (recipe) => {
-    if (isFav) {
-      console.log("TRUE: Remove Favourites");
-      //Remove favourite
-      setFavourites((prevFav) =>
-        prevFav.filter((filterFav) => filterFav !== recipe)
-      );
-    } else {
-      //Add favourites
-      console.log("FALSE: Add Favourites");
-      setFavourites((prevFav) => [...prevFav, recipe]);
-      saveFavourites(recipe);
-    }
-  };
+//   const toggleFavourites = () => {
+//     if (isFav) {
+//       console.log("TRUE: Remove Favourites");
+//       //Remove favourite
+//       setFavourites([]);
+//       deleteFavourites(recipe.index);
+//      } 
+    // else {
+    //   //Add favourites
+    //   console.log("FALSE: Add Favourites");
+    //   setFavourites( [recipe]);
+    // }
+//   };
 
   const toggleAccordion = () => {
     setStyle((prevState) =>
@@ -84,10 +78,6 @@ export const RecipeCard = (recipe) => {
 
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
-
-  const test = JSON.stringify(favourites);
-  console.log("Favourites!", test.length);
-  console.log("IsFav", isFav);
 
   return (
     <>
@@ -250,12 +240,14 @@ export const RecipeCard = (recipe) => {
             <button
               type="button"
               className={
-                " border border-0 btn " +
-                (isFav
-                  ? "btn-primary btn-lg p-0 me-1"
-                  : "btn-outline-primary btn-lg p-0 me-1")
-              }
-              onClick={() => toggleFavourites(recipe.recipe)}
+                " border border-0 btn btn-primary btn-lg p-0 me-1" }
+
+                //Delet below or uncomment
+            //     (isFav
+            //       ? "btn-primary btn-lg p-0 me-1"
+            //       : "btn-outline-primary btn-lg p-0 me-1")
+            //   }
+              onClick={() => deleteFavourites(recipe.index + 1)}
             >
               <i className="fa-regular fa-heart"></i>
             </button>

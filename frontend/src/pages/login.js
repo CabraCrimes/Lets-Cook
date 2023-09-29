@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  console.log(backendUrl)
+  console.log(backendUrl);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     uemail: "",
@@ -18,29 +18,37 @@ const Login = () => {
 
   // Login User Function
   const loginUser = async () => {
-    const response = await fetch(backendUrl + "/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: userInfo.uemail,
-        password: userInfo.upassword,
-      }),
-    });console.log("response", response)
-    if (response.ok){
-      const data = await response.json()
-      console.log("data:", data);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user))
-      localStorage.setItem("id", JSON.stringify(data.id))
-
+    try {
+      const response = await fetch(backendUrl + "/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userInfo.uemail,
+          password: userInfo.upassword,
+        }),
+      });
+      console.log("response", response);
+      if (response.ok) {
+        const data = await response.json();
+        console.log("data:", data);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("id", JSON.stringify(data.id));
+        navigate("/");
+        return true;
+      } else alert("Wrong credentials");
+    } catch (error) {
+      console.error("Failed: ", error);
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
+        alert("Network error. Please check your internet connection.");
+      } else {
+        alert("An unexpected error occurred. Please try again later.");
+      }
       navigate("/");
-      return true;
     }
-    else alert("Wrong credentials");
   };
-  
 
   return (
     <React.Fragment>
@@ -72,7 +80,7 @@ const Login = () => {
               <i className="fa-solid fa-envelope me-2"></i>Email address
             </label>
           </div>
-            {/* input for password */}
+          {/* input for password */}
           <div className="form-floating">
             <input
               name="upassword"
@@ -88,7 +96,11 @@ const Login = () => {
             </label>
           </div>
           <div className="col-12">
-            <button type="submit" className="btn btn-primary mt-2" onClick={() => loginUser()}>
+            <button
+              type="submit"
+              className="btn btn-primary mt-2"
+              onClick={() => loginUser()}
+            >
               Submit
             </button>
           </div>

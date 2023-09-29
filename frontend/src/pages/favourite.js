@@ -1,55 +1,44 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "../styles/Home.css";
 import { Navbar } from "../components/navbar";
 import { Link, useLocation } from "react-router-dom";
 // import {backgroundImage} from "../assets/Home/backgroundImage.jpg"
-import { RecipeCard } from "../components/recipeCard";
+import {FavouriteRecipeCard} from "../components/favouriteRecipeCard"
 import { backendFavouritesApi } from "../api/backEndFavouritesApi";
 
 function Favourites() {
-  const [recipeData, setRecipeData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [favourite, setFavourite] = useState([]);
+  const [favouriteRecipes, setFavouriteRecipes] = useState([]);
   const location = useLocation();
-    
+
   // need to make a fetch to the backend to we can get all the favourites and put these favourites in reipeData
   const handleSearchTermChange = (newSearchTerm) => {
     setSearchTerm(newSearchTerm);
   };
 
   useEffect(() => {
-    fetchData();
-    getLocalData();
-  }, [location.pathname]);
-
-  const getLocalData = () => {
-    try {
-      const favouriteData = JSON.parse(localStorage.getItem("favourites"));
-  
-      if (Array.isArray(favouriteData)) {
-        setFavourite((prevFavourites) => [...prevFavourites, ...favouriteData]);
-      } else if (favouriteData) {
-        // If it's not an array but a single object, handle it accordingly
-        setFavourite((prevFavourites) => [...prevFavourites, favouriteData]);
+    const fetchData = async () => {
+      try {
+        const localData = await backendFavouritesApi();
+        console.log("localData", localData);
+        console.log(
+          "HERE->",
+          localData.favourite.map((e) => e.favourite_JSON)
+        );
+        const parseData = localData.favourite.map((e) =>
+          JSON.parse(e.favourite_JSON)
+        );
+        console.log("PARSE", parseData);
+        setFavouriteRecipes((prevFavourites) => [
+          ...prevFavourites,
+          ...parseData,
+        ]);
+      } catch (error) {
+        console.error("Error feching favourites: ", error);
       }
-    } catch (error) {
-      console.error("Error parsing JSON:", error);
-    }
-  };
-  
-// I think my JSON is not valid. I have to push eacg JSON object into its own array then I send it to the local session.
-// READING MORE, PUSH THE JSON INTO AN ARRAY. An array of JSON
-  const fetchData = async () => {
-    try {
-      const localData = await backendFavouritesApi();
-      localStorage.setItem("favourites", localData.favourite.map((e) => e.favourite_JSON)
-      );
-      const favourites = JSON.parse(localStorage.getItem("favourites"));
-      console.log("FAVOURITE", favourites);
-    } catch (error) {
-      console.error("Error feching favourites: ", error);
-    }
-  };
+    };
+    fetchData();
+  }, [location.pathname]);
 
   return (
     <div className="background min-vh-100">
@@ -89,13 +78,16 @@ function Favourites() {
           </nav> */}
         </div>
         <div className="d-grid gap-4 d-flex flex-wrap ">
-          {console.log("!!!!!!!!!!!!!!!!!!", favourite)}
-          {console.log("¡¡¡¡¡¡¡¡¡¡¡¡", favourite.map(e=> e))}
-          {!favourite.length
+          {console.log("!!!!", favouriteRecipes)}
+          {console.log(
+            "¡¡¡¡",
+            favouriteRecipes.map((e) => e)
+          )}
+          {!favouriteRecipes.length
             ? "Add a favourite.."
-            : favourite.map((newRecipe, index) => {
+            : favouriteRecipes.map((newRecipe, index) => {
                 return (
-                  <RecipeCard
+                  <FavouriteRecipeCard 
                     key={newRecipe.calories}
                     recipe={newRecipe}
                     index={index}
