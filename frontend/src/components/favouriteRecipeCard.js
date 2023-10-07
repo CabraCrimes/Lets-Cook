@@ -2,13 +2,10 @@ import "../styles/recipeCard.css";
 import { useEffect, useState } from "react";
 
 export const FavouriteRecipeCard = (recipe) => {
-
-        
   const cuisineNameList = recipe.recipe.cuisineType;
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
-  const [favourites, setFavourites] = useState([]);
-  const [isFav, setIsFav] = useState(false);
-
+  const [render, isRender] = useState(false)
+  
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
     else {
@@ -22,11 +19,15 @@ export const FavouriteRecipeCard = (recipe) => {
     }
   };
 
-  useEffect(() => {
-    const hasFavorites = (favourites ?? []).length > 0;
-    setIsFav(hasFavorites);
-  }, [favourites, isFav]);
+  const renderState = () => {
+    isRender(prevRender => !prevRender);
+  };
 
+  useEffect(() => {
+    renderState()
+  }, [isRender]);
+  console.log("RENDER", render)
+  
   const deleteFavourites = async (favouriteId) => {
     try {
       const userId = JSON.parse(localStorage.getItem("id"));
@@ -47,7 +48,7 @@ export const FavouriteRecipeCard = (recipe) => {
       if (response.ok) {
         console.log("Favorite removed!");
       } else {
-        console.error("Failed to removefavourite");
+        console.error("Failed to remove favourite");
       }
     } catch (error) {
       console.error("Error removing favourites: ", error);
@@ -241,14 +242,13 @@ export const FavouriteRecipeCard = (recipe) => {
               type="button"
               className={
                 " border border-0 btn btn-primary btn-lg p-0 me-1" }
-
-                //Delet below or uncomment
-            //     (isFav
-            //       ? "btn-primary btn-lg p-0 me-1"
-            //       : "btn-outline-primary btn-lg p-0 me-1")
-            //   }
-              onClick={() => deleteFavourites(recipe.index + 1)}
+              
+            onClick={() => {
+              deleteFavourites(recipe.recipe.id);
+              renderState();
+            }}
             >
+              {console.log("ID@",recipe.recipe.id)}
               <i className="fa-regular fa-heart"></i>
             </button>
           </div>
