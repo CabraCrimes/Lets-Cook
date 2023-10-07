@@ -91,7 +91,7 @@ def get_favourite():
     user_favourite = Favourites.query.filter_by(user_id=current_user_id).all()
     favourite_list = []
     for favourite in user_favourite:
-        favourite_list.append({'id': favourite.id ,'favourite_JSON': favourite.favourite_JSON})
+        favourite_list.append({'id': favourite.id,'favourite_JSON': favourite.favourite_JSON})
     return jsonify({'favourite': favourite_list})
 
 # Delete Favourites
@@ -101,3 +101,4 @@ def delete_favourite(favourite_id):
     db.session.delete(favourite)
     db.session.commit()
     return jsonify({'message': 'Favourite deleted'})
+

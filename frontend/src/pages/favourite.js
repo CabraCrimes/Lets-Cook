@@ -9,6 +9,7 @@ import { backendFavouritesApi } from "../api/backEndFavouritesApi";
 function Favourites() {
   const [searchTerm, setSearchTerm] = useState("");
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
+  const [forceRender, setForceRender] = useState(false);
   const location = useLocation();
 
   // need to make a fetch to the backend to we can get all the favourites and put these favourites in reipeData
@@ -25,14 +26,14 @@ function Favourites() {
           "HERE->",
           localData.favourite.map((e) => e.favourite_JSON)
         );
-        const parseData = localData.favourite.map((e) =>
-          JSON.parse(e.favourite_JSON)
-        );
-        console.log("PARSE", parseData);
-        setFavouriteRecipes((prevFavourites) => [
-          ...prevFavourites,
-          ...parseData,
-        ]);
+
+        const parsedFavourites = localData.favourite.map(e => {
+          const parsJSON = JSON.parse(e.favourite_JSON)
+          return {'id': e.id, ...parsJSON};
+        });
+        console.log("@@@@@@@@@@@@",parsedFavourites)
+
+        setFavouriteRecipes(() => [...parsedFavourites]);
       } catch (error) {
         console.error("Error feching favourites: ", error);
       }
@@ -78,17 +79,13 @@ function Favourites() {
           </nav> */}
         </div>
         <div className="d-grid gap-4 d-flex flex-wrap ">
-          {console.log("!!!!", favouriteRecipes)}
-          {console.log(
-            "¡¡¡¡",
-            favouriteRecipes.map((e) => e)
-          )}
+          {console.log("favouriteRecipes", favouriteRecipes)}
           {!favouriteRecipes.length
             ? "Add a favourite.."
             : favouriteRecipes.map((newRecipe, index) => {
                 return (
                   <FavouriteRecipeCard 
-                    key={newRecipe.calories}
+                    key={newRecipe.id}
                     recipe={newRecipe}
                     index={index}
                   />

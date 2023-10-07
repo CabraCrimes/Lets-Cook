@@ -23,8 +23,8 @@ export const backendFavouritesApi = async () => {
     if (!data) {
       return <p>No favorites found.</p>;
     }
-    console.log("Backend data", data);
     console.log("response",response);
+    console.log("Backend data", data);
     return data;
   } catch (error) {
     console.error("Error fetching backend data: ", error);
