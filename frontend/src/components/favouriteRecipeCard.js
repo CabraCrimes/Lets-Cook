@@ -1,10 +1,9 @@
 import "../styles/recipeCard.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const FavouriteRecipeCard = (recipe) => {
   const cuisineNameList = recipe.recipe.cuisineType;
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
-  const [render, isRender] = useState(false)
   
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
@@ -19,15 +18,6 @@ export const FavouriteRecipeCard = (recipe) => {
     }
   };
 
-  const renderState = () => {
-    isRender(prevRender => !prevRender);
-  };
-
-  useEffect(() => {
-    renderState()
-  }, [isRender]);
-  console.log("RENDER", render)
-  
   const deleteFavourites = async (favouriteId) => {
     try {
       const userId = JSON.parse(localStorage.getItem("id"));
@@ -54,20 +44,6 @@ export const FavouriteRecipeCard = (recipe) => {
       console.error("Error removing favourites: ", error);
     }
   };
-
-//   const toggleFavourites = () => {
-//     if (isFav) {
-//       console.log("TRUE: Remove Favourites");
-//       //Remove favourite
-//       setFavourites([]);
-//       deleteFavourites(recipe.index);
-//      } 
-    // else {
-    //   //Add favourites
-    //   console.log("FALSE: Add Favourites");
-    //   setFavourites( [recipe]);
-    // }
-//   };
 
   const toggleAccordion = () => {
     setStyle((prevState) =>
@@ -245,7 +221,7 @@ export const FavouriteRecipeCard = (recipe) => {
               
             onClick={() => {
               deleteFavourites(recipe.recipe.id);
-              renderState();
+              window.location.reload(false);
             }}
             >
               {console.log("ID@",recipe.recipe.id)}
