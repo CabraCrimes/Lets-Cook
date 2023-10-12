@@ -45,10 +45,10 @@ function Favourites() {
     <div className="background min-vh-100">
       <Navbar onChange={handleSearchTermChange} />
       <div className="container container-with-background">
-        <div className="d-flex">
-          <h1 className="d-flex justify-content-start my-3 me-2 ">Recipes</h1>
-          {/* this needs to be a component */}
-          {/* <nav aria-label="Page navigation example ">
+        {/* <div className="d-flex">
+        !!! this needs to be a component and added later !!!
+        <h1 className="d-flex justify-content-start my-3 me-2 ">Recipes</h1>
+          <nav aria-label="Page navigation example ">
             <ul className="pagination mt-4">
               <li className="page-item">
                 <a className="page-link" href="..." aria-label="Previous">
@@ -76,9 +76,9 @@ function Favourites() {
                 </a>
               </li>
             </ul>
-          </nav> */}
-        </div>
-        <div className="d-grid gap-4 d-flex flex-wrap ">
+          </nav>
+        </div> */}
+        <div className="d-grid gap-4 d-flex flex-wrap mt-5">
           {console.log("favouriteRecipes", favouriteRecipes)}
           {!favouriteRecipes.length
             ? "Add a favourite.."
