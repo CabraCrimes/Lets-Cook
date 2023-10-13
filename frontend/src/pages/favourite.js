@@ -9,7 +9,6 @@ import { backendFavouritesApi } from "../api/backEndFavouritesApi";
 function Favourites() {
   const [searchTerm, setSearchTerm] = useState("");
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
-  const [forceRender, setForceRender] = useState(false);
   const location = useLocation();
 
   // need to make a fetch to the backend to we can get all the favourites and put these favourites in reipeData
