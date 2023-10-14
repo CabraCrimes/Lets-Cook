@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "../styles/navbar.css";
-import { fetchRecipes } from "../api/recipeApi";
+// import { fetchRecipes } from "../api/recipeApi";
 
 export const Navbar = ({ onSearchTermChange }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,11 +18,11 @@ export const Navbar = ({ onSearchTermChange }) => {
     if (searchTerm.trim() !== "") {
       console.log("search term", searchTerm);
       try {
-        const data = await fetchRecipes(searchTerm);
+        // const data = await fetchRecipes(searchTerm);
         onSearchTermChange(searchTerm);
-        console.log("Nav handleSearch", data);
+        // console.log("Nav handleSearch Test", data);
       } catch (error) {
-        console.error("Error fetching recipes: ", error);
+        console.error("Error search term: ", error);
       }
     }
   };
@@ -42,6 +42,7 @@ export const Navbar = ({ onSearchTermChange }) => {
     setUser(null);
     navigate("/");
   };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userDataJson = localStorage.getItem("user");
@@ -50,6 +51,16 @@ export const Navbar = ({ onSearchTermChange }) => {
       if (token) setUser(userData);
     }
   }, []);
+
+  const handleFavourites = () => {
+    const currentPath = window.location.pathname;
+
+    if (currentPath !== "/favourites") {
+      navigate("/favourites");
+    } else {
+      window.location.reload();
+    }
+  };
 
   return (
     <>
@@ -99,23 +110,40 @@ export const Navbar = ({ onSearchTermChange }) => {
             </ul>
             {user ? (
               // Create a drop down here
-              <div className="d-flex justify-content-between mt-sm-2">
+              <div className="d-flex justify-content-end me-4">
                 <div className="text-light me-3 fs-5 text">Welcome {user}</div>
-                <div className="d-flex justify-content-end">
+                <div className="btn-group dropstart">
                   <button
-                    className="btn btn-outline-light "
-                    onClick={handleLogout}
+                    className="btn btn-outline-light rounded-circle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
-                    Logout
+                    <i class="fa-regular fa-user"></i>
                   </button>
-                  <Link className="text-link" to="favourites">
-                    <button
-                      type="button"
-                      className="btn btn-outline-light fs-6 text ms-2 me-3"
-                    >
-                      Favorites
-                    </button>
-                  </Link>
+                  <ul className="dropdown-menu pe-3">
+                    <li>
+                      <button
+                        className="btn btn-outline-dark dropdown-item ms-2"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                    <li>
+                      <div className="">
+                      <Link className="text-link" to="favourites">
+                        <button
+                          type="button"
+                          className="btn btn-outline-dark dropdown-item fs-6 text ms-2 me-3"
+                          onClick={handleFavourites}
+                        >
+                          Favorites
+                        </button>
+                      </Link>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
             ) : (

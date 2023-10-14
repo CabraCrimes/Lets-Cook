@@ -224,7 +224,6 @@ export const FavouriteRecipeCard = (recipe) => {
               window.location.reload(false);
             }}
             >
-              {console.log("ID@",recipe.recipe.id)}
               <i className="fa-regular fa-heart"></i>
             </button>
           </div>
