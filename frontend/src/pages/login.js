@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+// import "../styles/login.css";
 
 const Login = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -52,18 +53,12 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      <div className="container">
-        <div className="d-flex justify-content-between mt-3">
-          <Link to={"/"}>
-            <h1>Lets Cook</h1>
-          </Link>
-          {/* maybe make this a button */}
-          <Link to={"/register"}>
-            <h3 type="button" className="btn btn-dark">
-              Sign Up
-            </h3>
+        <div className="navbar-custom d-flex justify-content-between ps-5 py-3 link-secondary">
+          <Link className="text-link " to={"/"}>
+          <h1 className="text-light icon-link icon-link-hover me-4 "><i className="fa-solid fa-arrow-left"/></h1><h1 className="text-light icon-link icon-link-hover ">Lets Cook </h1>
           </Link>
         </div>
+      <div className="container">
         <div className="container d-flex flex-column border bg-light mt-5 p-5 col-sm-8 col-md-6 col-lg-6 shadow rounded ">
           <h2 className="mb-5 text-center fw-bold">Login</h2>
           {/* input for email */}
@@ -92,17 +87,26 @@ const Login = () => {
               onChange={handleChange}
             />
             <label htmlFor="inputPasswordRegister" className="form-label">
-              <i className="fa-solid fa-lock"></i>Password
+              <i className="fa-solid fa-lock me-2"></i>Password
             </label>
           </div>
-          <div className="col-12">
-            <button
-              type="submit"
-              className="btn btn-primary mt-2"
-              onClick={() => loginUser()}
-            >
-              Submit
-            </button>
+          <div className="d-flex justify-content-between">
+            <div className="">
+              <button
+                type="submit"
+                className="btn btn-primary mt-3"
+                onClick={() => loginUser()}
+              >
+                Submit
+              </button>
+            </div>
+            <div className="mt-3">
+              <Link to={"/register"}>
+                <h3 type="button" className="btn btn-dark">
+                  Sign Up
+                </h3>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -66,7 +66,7 @@ export const Navbar = ({ onSearchTermChange }) => {
     <>
       <nav className="navbar navbar-custom navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <div className="navbar-brand  ms-4 me-5">
+          <div className="navbar-brand ms-4 me-5">
             <Link className="text-link" to="/">
               <h1 className="text-light">Lets Cook</h1>
             </Link>
