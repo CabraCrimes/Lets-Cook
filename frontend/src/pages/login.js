@@ -53,7 +53,7 @@ const Login = () => {
 
   return (
     <React.Fragment>
-        <div className="navbar-custom d-flex justify-content-between ps-5 py-3 link-secondary">
+        <div className="navbar-custom d-flex justify-content-between ps-5 py-3 ">
           <Link className="text-link " to={"/"}>
           <h1 className="text-light icon-link icon-link-hover me-4 "><i className="fa-solid fa-arrow-left"/></h1><h1 className="text-light icon-link icon-link-hover ">Lets Cook </h1>
           </Link>
@@ -91,10 +91,10 @@ const Login = () => {
             </label>
           </div>
           <div className="d-flex justify-content-between">
-            <div className="">
+            <div>
               <button
                 type="submit"
-                className="btn btn-primary mt-3"
+                className="buttons-body btn mt-3"
                 onClick={() => loginUser()}
               >
                 Submit
@@ -102,7 +102,7 @@ const Login = () => {
             </div>
             <div className="mt-3">
               <Link to={"/register"}>
-                <h3 type="button" className="btn btn-dark">
+                <h3 type="button" className="buttons-body btn ">
                   Sign Up
                 </h3>
               </Link>

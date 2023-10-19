@@ -36,18 +36,15 @@ const Register = () => {
 
   return (
     <React.Fragment>
+      <div className="navbar-custom d-flex justify-content-between ps-5 py-3 ">
+        <Link className="text-link " to={"/"}>
+          <h1 className="text-light icon-link icon-link-hover me-4 ">
+            <i className="fa-solid fa-arrow-left" />
+          </h1>
+          <h1 className="text-light icon-link icon-link-hover ">Lets Cook </h1>
+        </Link>
+      </div>
       <div className="container">
-        <div className="d-flex justify-content-between mt-3">
-          <Link to={"/"}>
-            <h1>Lets Cook</h1>
-          </Link>
-          {/* maybe make this a button */}
-          <Link to={"/login"}>
-            <h3 type="button" className="btn btn-dark">
-              Login
-            </h3>
-          </Link>
-        </div>
         <div className="container d-flex flex-column border bg-light mt-5 p-5 col-sm-8 col-md-6 col-lg-6 shadow rounded ">
           <h2 className="mb-5 text-center fw-bold">Sign Up</h2>
           <div className="form-floating mb-2">
@@ -90,17 +87,26 @@ const Register = () => {
               onChange={handleChange}
             />
             <label htmlFor="inputPasswordRegister" className="form-label">
-              <i className="fa-solid fa-lock"></i>Password
+              <i className="fa-solid fa-lock me-2"></i>Password
             </label>
           </div>
-          <div className="col-12">
-            <button
-              type="submit"
-              className="btn btn-primary mt-2"
-              onClick={() => registerUser()}
-            >
-              Submit
-            </button>
+          <div className="d-flex justify-content-between">
+            <div>
+              <button
+                type="submit"
+                className="buttons-body btn mt-3"
+                onClick={() => registerUser()}
+              >
+                Submit
+              </button>
+            </div>
+            <div className="">
+              <Link to={"/login"}>
+                <h3 type="button" className="buttons-body btn mb-0 mt-3">
+                  Login
+                </h3>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
