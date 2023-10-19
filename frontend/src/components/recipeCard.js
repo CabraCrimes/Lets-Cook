@@ -92,7 +92,7 @@ export const RecipeCard = (recipe) => {
   return (
     <>
       <div>
-        <div className="card" style={style}>
+        <div className="card-style card border border-0" style={style}>
           <img
             src={recipe.recipe.image}
             className="card-img-top shadow bg-body rounded"
@@ -105,10 +105,10 @@ export const RecipeCard = (recipe) => {
           <ul className="list-group list-group-flush">
             {/* accordion1 */}
             <div className="accordion accordion-flush" id={accordionId}>
-              <div className="accordion-item">
-                <h2 className="accordion-header">
+              <div className="accordion-item card-style">
+                <h2 className="accordion-header ">
                   <button
-                    className="accordion-button"
+                    className="accordion-button "
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target={`#panelsStayOpen-collapseOne-${recipe.index}`}
