@@ -14,4 +14,10 @@
   color: white;
 }
 
+.background {
+  background-image: url("../assets/Home/backgroundImage.jpg");
+  background-size: 100% 130%;
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
 
