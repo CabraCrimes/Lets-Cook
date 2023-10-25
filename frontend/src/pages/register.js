@@ -35,7 +35,7 @@ const Register = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className="background min-vh-100">
       <div className="navbar-custom d-flex justify-content-between ps-5 py-3 ">
         <Link className="text-link " to={"/"}>
           <h1 className="text-light icon-link icon-link-hover me-4 ">
@@ -110,7 +110,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 export default Register;
