@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import "../styles/login.css";
+import "../styles/Home.css";
 
 const Login = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -52,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className="background min-vh-100">
         <div className="navbar-custom d-flex justify-content-between ps-5 py-3 ">
           <Link className="text-link " to={"/"}>
           <h1 className="text-light icon-link icon-link-hover me-4 "><i className="fa-solid fa-arrow-left"/></h1><h1 className="text-light icon-link icon-link-hover ">Lets Cook </h1>
@@ -110,7 +110,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 export default Login;
