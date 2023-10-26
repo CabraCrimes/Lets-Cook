@@ -102,11 +102,11 @@ export const RecipeCard = (recipe) => {
             <h4 className="p card-title">{recipe.recipe.label}</h4>
             <div className="p card-text">{cuisineName}</div>
           </div>
-          <ul className="list-group list-group-flush">
+          
             {/* accordion1 */}
             <div className="accordion accordion-flush" id={accordionId}>
-              <div className="accordion-item card-style">
-                <h2 className="accordion-header ">
+              <div className="accordion-item">
+                <h2 className="accordion-header">
                   <button
                     className="accordion-button "
                     type="button"
@@ -245,7 +245,7 @@ export const RecipeCard = (recipe) => {
                 </div>
               </div>
             </div>
-          </ul>
+          
           <div className="d-flex justify-content-end card-footer text-body-secondary">
             <button
               type="button"
