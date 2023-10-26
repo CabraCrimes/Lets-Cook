@@ -1,8 +1,10 @@
 
 .p{
   font-family: Arial, Helvetica, sans-serif;
-  color: rgb(41, 41, 53);
+  color: rgb(248, 248, 248);
+  
 }
+
 .card-link {
     text-decoration: none;
   }
@@ -10,26 +12,34 @@
 .card {
     border: 1px solid #e6e2e2;
     margin-bottom: 10px;
+    
   }
   
 .accordion {
     display: flex;
     flex-direction: column;
+    background-color: transparent !important;
   }
   
-.accordion-header {
-    padding: 0px;
+.accordion-item .accordion-header {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+    /* padding: 0px;
     cursor: pointer;
     background-color: #fafafa;
     border-bottom: 1px solid #fefefe;
     display: flex;
-    align-items: center;
-  }
+    align-items: center; */
+  };
   
 .accordion-button {
     flex: 1;
     text-align: left;
-  }
+    display: flex;
+    
+}
   
 .accordion-content {
     overflow: hidden;
@@ -42,7 +52,16 @@
     transition: max-height 0.3s ease-in-out;
   }
   
-/* .background {
-    background-image: url("../assets/Home/backgroundImage.jpg");
-    
+.card-style{
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* .list-group {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 } */
