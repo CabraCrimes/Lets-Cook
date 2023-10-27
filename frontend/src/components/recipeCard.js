@@ -7,6 +7,10 @@ export const RecipeCard = (recipe) => {
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
   const [favourites, setFavourites] = useState([]);
   const [isFav, setIsFav] = useState(false);
+  const [accordion1Open, setAccordion1Open] = useState(false);
+  const [accordion2Open, setAccordion2Open] = useState(false);
+  const [accordion3Open, setAccordion3Open] = useState(false);
+  const [accordion4Open, setAccordion4Open] = useState(false);
 
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
@@ -78,7 +82,7 @@ export const RecipeCard = (recipe) => {
     setStyle((prevState) =>
       prevState.height === "42rem"
         ? { width: "18rem" }
-        : { width: "18rem", height: "42rem" }
+        : { width: "18rem", height: prevState.height === "42rem" ? "auto" : "42rem" }
     );
   };
 

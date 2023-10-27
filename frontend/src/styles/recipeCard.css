@@ -18,27 +18,20 @@
 .accordion {
     display: flex;
     flex-direction: column;
-    background-color: transparent !important;
+    /* --bs-accordion-btn-bg: rgba(190, 190, 190, 0.199); */
+    /* --bs-accordion-color: red; */
+    --bs-accordion-bg: rgba(92, 91, 91, 0.116);
+    --bs-accordion-active-color: rgb(110, 21, 88);
+    --bs-accordion-border-color: none
+    /* --bs-accordion-active-bg: red; */
+    /* background-color: transparent !important; */
   }
-  
-.accordion-item .accordion-header {
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(3px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-    /* padding: 0px;
-    cursor: pointer;
-    background-color: #fafafa;
-    border-bottom: 1px solid #fefefe;
-    display: flex;
-    align-items: center; */
-  };
+
   
 .accordion-button {
     flex: 1;
     text-align: left;
     display: flex;
-    
 }
   
 .accordion-content {
@@ -55,8 +48,8 @@
 .card-style{
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(2px);
+    /* border: 1px solid rgba(255, 255, 255, 0.2); */
 }
 
 /* .list-group {
