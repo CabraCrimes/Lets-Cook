@@ -58,7 +58,7 @@ const Register = () => {
               onChange={handleChange}
             />
             <label htmlFor="nameForRegister" className="form-label">
-              <i className="fa-solid fa-envelope me-2"></i>Name
+              <i className="fa-solid fa-envelope text-secondary me-2"></i>Name
             </label>
           </div>
           {/* input for email */}
@@ -72,7 +72,7 @@ const Register = () => {
               onChange={handleChange}
             />
             <label htmlFor="emailForRegister" className="form-label">
-              <i className="fa-solid fa-envelope me-2"></i>Email address
+              <i className="fa-solid fa-envelope text-secondary me-2"></i>Email address
             </label>
           </div>
           <div className="form-floating">
@@ -87,7 +87,7 @@ const Register = () => {
               onChange={handleChange}
             />
             <label htmlFor="inputPasswordRegister" className="form-label">
-              <i className="fa-solid fa-lock me-2"></i>Password
+              <i className="fa-solid fa-lock text-secondary me-2"></i>Password
             </label>
           </div>
           <div className="d-flex justify-content-between">
@@ -100,7 +100,7 @@ const Register = () => {
                 Submit
               </button>
             </div>
-            <div className="">
+            <div>
               <Link to={"/login"}>
                 <h3 type="button" className="buttons-body btn mb-0 mt-3">
                   Login

@@ -1,60 +1,57 @@
-
-.p{
+.p {
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(248, 248, 248);
-  
+
 }
 
 .card-link {
-    text-decoration: none;
-  }
-  
+  text-decoration: none;
+}
+
 .card {
-    border: 1px solid #e6e2e2;
-    margin-bottom: 10px;
-    
-  }
-  
+  border: 1px solid #e6e2e2;
+  margin-bottom: 10px;
+
+}
+
 .accordion {
-    display: flex;
-    flex-direction: column;
-    /* --bs-accordion-btn-bg: rgba(190, 190, 190, 0.199); */
-    /* --bs-accordion-color: red; */
-    --bs-accordion-bg: rgba(92, 91, 91, 0.116);
-    --bs-accordion-active-color: rgb(110, 21, 88);
-    --bs-accordion-border-color: none
-    /* --bs-accordion-active-bg: red; */
-    /* background-color: transparent !important; */
-  }
+  display: flex;
+  flex-direction: column;
+  /* --bs-accordion-btn-bg: rgba(190, 190, 190, 0.199); */
+  /* --bs-accordion-color: red; */
+  --bs-accordion-bg: rgba(54, 54, 54, 0.075);
+  --bs-accordion-active-color: rgb(255, 255, 255);
+  --bs-accordion-border-color: rgba(179, 178, 178, 0.116);
+  --bs-accordion-active-bg: rgb(37, 49, 82);
+  --bs-accordion-btn-icon: rgb(255, 255, 255);
+  /* background-color: transparent !important; */
+}
 
-  
 .accordion-button {
-    flex: 1;
-    text-align: left;
-    display: flex;
-}
-  
-.accordion-content {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.3s ease-in-out;
-  }
-  
-.accordion-content.expanded {
-    max-height: 1000px; /* Adjust this value as needed */
-    transition: max-height 0.3s ease-in-out;
-  }
-  
-.card-style{
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(2px);
-    /* border: 1px solid rgba(255, 255, 255, 0.2); */
+  flex: 1;
+  text-align: left;
+  display: flex;
 }
 
-/* .list-group {
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-} */
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.accordion-content.expanded {
+  max-height: 1000px;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.card-style.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.096);
+  backdrop-filter: blur(1px);
+  border: 1px solid rgb(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.fa-solid {
+  color: white;
+}
