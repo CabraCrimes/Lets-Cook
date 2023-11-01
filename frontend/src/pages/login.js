@@ -72,7 +72,7 @@ const Login = () => {
               onChange={handleChange}
             />
             <label htmlFor="emailForRegister" className="form-label">
-              <i className="fa-solid fa-envelope me-2"></i>Email address
+              <i className="fa-solid fa-envelope text-secondary me-2"></i>Email address
             </label>
           </div>
           {/* input for password */}
@@ -87,7 +87,7 @@ const Login = () => {
               onChange={handleChange}
             />
             <label htmlFor="inputPasswordRegister" className="form-label">
-              <i className="fa-solid fa-lock me-2"></i>Password
+              <i className="fa-solid fa-lock me-2 text-secondary"></i>Password
             </label>
           </div>
           <div className="d-flex justify-content-between">

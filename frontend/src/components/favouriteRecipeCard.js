@@ -59,7 +59,7 @@ export const FavouriteRecipeCard = (recipe) => {
   return (
     <>
       <div>
-        <div className="card" style={style}>
+        <div className="card-style card" style={style}>
           <img
             src={recipe.recipe.image}
             className="card-img-top shadow bg-body rounded"
@@ -217,7 +217,7 @@ export const FavouriteRecipeCard = (recipe) => {
             <button
               type="button"
               className={
-                " border border-0 btn btn-primary btn-lg p-0 me-1" }
+                "border border-0 btn btn-light btn-md p-1 px-3 py-2 me-1" }
               
             onClick={() => {
               deleteFavourites(recipe.recipe.id);

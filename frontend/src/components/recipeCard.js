@@ -7,10 +7,6 @@ export const RecipeCard = (recipe) => {
   const [style, setStyle] = useState({ width: "18rem", height: "42rem" });
   const [favourites, setFavourites] = useState([]);
   const [isFav, setIsFav] = useState(false);
-  const [accordion1Open, setAccordion1Open] = useState(false);
-  const [accordion2Open, setAccordion2Open] = useState(false);
-  const [accordion3Open, setAccordion3Open] = useState(false);
-  const [accordion4Open, setAccordion4Open] = useState(false);
 
   const capitalize = (stringArray) => {
     if (!stringArray) return [];
@@ -82,7 +78,10 @@ export const RecipeCard = (recipe) => {
     setStyle((prevState) =>
       prevState.height === "42rem"
         ? { width: "18rem" }
-        : { width: "18rem", height: prevState.height === "42rem" ? "auto" : "42rem" }
+        : {
+            width: "18rem",
+            height: prevState.height === "42rem" ? "auto" : "42rem",
+          }
     );
   };
 
@@ -94,178 +93,214 @@ export const RecipeCard = (recipe) => {
   console.log("IsFav", isFav);
 
   return (
-    <>
-      <div>
-        <div className="card-style card border border-0" style={style}>
-          <img
-            src={recipe.recipe.image}
-            className="card-img-top shadow bg-body rounded"
-            alt={recipe.recipe.label}
-          />
-          <div className="card-body">
-            <h4 className="p card-title">{recipe.recipe.label}</h4>
-            <div className="p card-text">{cuisineName}</div>
+    <div>
+      <div className="card-style card" style={style}>
+        <img
+          src={recipe.recipe.image}
+          className="card-img-top shadow bg-body rounded"
+          alt={recipe.recipe.label}
+        />
+        <div className="card-body">
+          <h4 className="p card-title">{recipe.recipe.label}</h4>
+          <div className="p card-text">{cuisineName}</div>
+        </div>
+
+        {/* accordion1 */}
+        <div className="accordion accordion-flush" id={accordionId}>
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button
+                className="accordion-button collapsed row"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#panelsStayOpen-collapseOne-${recipe.index}`}
+                aria-expanded={style.height === "42rem" ? "true" : "false"}
+                onClick={toggleAccordion}
+                aria-controls={`panelsStayOpen-collapseOne-${recipe.index}`}
+              >
+                 <div className="col-2">
+                  <i className="fa-solid fa-burger"></i>
+                </div>
+                <div className="p col-6 p-0">
+                  {recipe.recipe.ingredientLines.length} Ingredients
+                </div>
+                <div className="col p-0 d-flex justify-content-end">
+                  {style.height === "42rem" ? (
+                    <i className="fa-solid fa-chevron-down" />
+                  ) : (
+                    <i className="fa-solid fa-chevron-up" />
+                  )}
+                </div>
+              </button>
+            </h2>
+            <div
+              id={`panelsStayOpen-collapseOne-${recipe.index}`}
+              className="accordion-collapse collapse"
+              data-bs-parent={`#${accordionId}`}
+            >
+              <div className="p accordion-body">
+                {recipe.recipe.ingredientLines.map((list, i) => (
+                  <div
+                    key={`${recipe.recipe.food}-${recipe.recipe.foodCategory}-${i}`}
+                  >
+                    {list}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          
-            {/* accordion1 */}
-            <div className="accordion accordion-flush" id={accordionId}>
-              <div className="accordion-item">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button "
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#panelsStayOpen-collapseOne-${recipe.index}`}
-                    aria-expanded={style.height === "42rem" ? "true" : "false"}
-                    onClick={toggleAccordion}
-                    aria-controls={`panelsStayOpen-collapseOne-${recipe.index}`}
-                  >
-                    <div className="p">
-                      {recipe.recipe.ingredientLines.length} Ingredients
-                    </div>
-                    <div className="ms-3">
-                      <i className="fa-solid fa-burger"></i>
-                    </div>
-                  </button>
-                </h2>
-                <div
-                  id={`panelsStayOpen-collapseOne-${recipe.index}`}
-                  className="accordion-collapse collapse"
-                  data-bs-parent={`#${accordionId}`}
-                >
-                  <div className="p accordion-body">
-                    {recipe.recipe.ingredientLines.map((list, i) => (
-                      <div
-                        key={`${recipe.recipe.food}-${recipe.recipe.foodCategory}-${i}`}
-                      >
-                        {list}
-                      </div>
-                    ))}
-                  </div>
+          {/* accordion2 */}
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button
+                className="accordion-button collapsed row"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#flush-collapseTwo-${recipe.index}`}
+                aria-expanded={style.height === "42rem" ? "true" : "false"}
+                onClick={toggleAccordion}
+                aria-controls={`flush-collapseTwo-${recipe.index}`}
+              >
+                <div className="col-2">
+                  <i className="fa-solid fa-list-check"></i>
                 </div>
-              </div>
-              {/* accordion2 */}
-              <div className="accordion-item">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#flush-collapseTwo-${recipe.index}`}
-                    aria-expanded={style.height === "42rem" ? "true" : "false"}
-                    onClick={toggleAccordion}
-                    aria-controls={`flush-collapseTwo-${recipe.index}`}
-                  >
-                    <div className="p"> Shopping List</div>
-                    <div className="ms-3">
-                      <i className="fa-solid fa-list-check"></i>
-                    </div>
-                  </button>
-                </h2>
-                <div
-                  id={`flush-collapseTwo-${recipe.index}`}
-                  className="accordion-collapse collapse"
-                  data-bs-parent={`#${accordionId}`}
-                >
-                  <div className="p accordion-body">
-                    {recipe.recipe.ingredients.map((e, i) => (
-                      <div key={`${e.food}-${e.foodCategory}-${i}`}>
-                        {`${capitalize([e.food])} (${capitalize([
-                          e.foodCategory,
-                        ])}: `}
-                        <a href={e.image} className="card-link">
-                          Image
-                        </a>
-                        {")"}
-                      </div>
-                    ))}
-                  </div>
+                <div className="p col-6 p-0"> 
+                  Shopping List
                 </div>
-              </div>
-              {/* accordion3 */}
-              <div className="accordion-item ">
-                <h2 className="accordion-header ">
-                  <button
-                    className="p accordion-button collapsed "
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#flush-collapseThree-${recipe.index}`}
-                    aria-expanded={style.height === "42rem" ? "true" : "false"}
-                    onClick={toggleAccordion}
-                    aria-controls={`flush-collapseThree-${recipe.index}`}
-                  >
-                    <div className="p me-2">Recipe</div>
-                    <i className="fa-solid fa-kitchen-set " />
-                  </button>
-                </h2>
-                <div
-                  id={`flush-collapseThree-${recipe.index}`}
-                  className="accordion-collapse collapse"
-                  data-bs-parent={`#${accordionId}`}
-                >
-                  <div className="accordion-body">
-                    <div className="p">
-                      <a href={recipe.recipe.url} className="card-link">
-                        {recipe.recipe.source}
-                      </a>
-                    </div>
-                  </div>
+                <div className="col p-0 d-flex justify-content-end">
+                  {style.height === "42rem" ? (
+                    <i className="fa-solid fa-chevron-down " />
+                  ) : (
+                    <i className="fa-solid fa-chevron-up" />
+                  )}
                 </div>
-              </div>
-              {/* accordion4 */}
-              <div className="accordion-item">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#flush-collapseFour-${recipe.index}`}
-                    aria-expanded={style.height === "42rem" ? "true" : "false"}
-                    onClick={toggleAccordion}
-                    aria-controls={`flush-collapseFour-${recipe.index}`}
-                  >
-                    <div className="p">Nutrition</div>
-                    <div className="ms-3">
-                      <i className="fa-solid fa-calculator"></i>
-                    </div>
-                  </button>
-                </h2>
-                <div
-                  id={`flush-collapseFour-${recipe.index}`}
-                  className="accordion-collapse collapse"
-                  data-bs-parent={`#${accordionId}`}
-                >
-                  <div className="accordion-body">
-                    <div className="p">
-                      Calories: {Math.round(recipe.recipe.calories)}
-                    </div>
-                    <div
-                      className="p"
-                      key={`${recipe.recipe.calories}-${recipe.recipe.totalWeight}`}
-                    >
-                      {recipe.recipe.healthLabels.join(", ")}
-                    </div>
+              </button>
+            </h2>
+            <div
+              id={`flush-collapseTwo-${recipe.index}`}
+              className="accordion-collapse collapse"
+              data-bs-parent={`#${accordionId}`}
+            >
+              <div className="p accordion-body">
+                {recipe.recipe.ingredients.map((e, i) => (
+                  <div key={`${e.food}-${e.foodCategory}-${i}`}>
+                    {`${capitalize([e.food])} (${capitalize([
+                      e.foodCategory,
+                    ])}: `}
+                    <a href={e.image} className="card-link">
+                      Image
+                    </a>
+                    {")"}
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* accordion3 */}
+          <div className="accordion-item ">
+            <h2 className="accordion-header ">
+              <button
+                className="p accordion-button collapsed row"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#flush-collapseThree-${recipe.index}`}
+                aria-expanded={style.height === "42rem" ? "true" : "false"}
+                onClick={toggleAccordion}
+                aria-controls={`flush-collapseThree-${recipe.index}`}
+              >
+                <div className="col-2">
+                  <i className="fa-solid fa-kitchen-set " />
+                </div>
+                <div className="p col-6 p-0">
+                  Recipe
+                </div>
+                
+                <div className="col p-0 d-flex justify-content-end">
+                  {style.height === "42rem" ? (
+                    <i className="fa-solid fa-chevron-down" />
+                  ) : (
+                    <i className="fa-solid fa-chevron-up" />
+                  )}
+                </div>
+              </button>
+            </h2>
+            <div
+              id={`flush-collapseThree-${recipe.index}`}
+              className="accordion-collapse collapse"
+              data-bs-parent={`#${accordionId}`}
+            >
+              <div className="accordion-body">
+                <div className="p">
+                  <a href={recipe.recipe.url} className="card-link">
+                    {recipe.recipe.source}
+                  </a>
                 </div>
               </div>
             </div>
-          
-          <div className="d-flex justify-content-end card-footer text-body-secondary">
-            <button
-              type="button"
-              className={
-                " border border-0 btn " +
-                (isFav
-                  ? "btn-primary btn-lg p-0 me-1"
-                  : "btn-outline-primary btn-lg p-0 me-1")
-              }
-              onClick={() => toggleFavourites(recipe.recipe)}
+          </div>
+          {/* accordion4 */}
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button
+                className="accordion-button collapsed row"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#flush-collapseFour-${recipe.index}`}
+                aria-expanded={style.height === "42rem" ? "true" : "false"}
+                onClick={toggleAccordion}
+                aria-controls={`flush-collapseFour-${recipe.index}`}
+              >
+                <div className="col-2">
+                  <i className="fa-solid fa-calculator"></i>
+                </div>
+                <div className="p col-6 p-0">
+                  Nutrition
+                </div>
+                
+                <div className="col p-0 d-flex justify-content-end">
+                  {style.height === "42rem" ? (
+                    <i className="fa-solid fa-chevron-down" />
+                  ) : (
+                    <i className="fa-solid fa-chevron-up" />
+                  )}
+                </div>
+              </button>
+            </h2>
+            <div
+              id={`flush-collapseFour-${recipe.index}`}
+              className="accordion-collapse collapse"
+              data-bs-parent={`#${accordionId}`}
             >
-              <i className="fa-regular fa-heart"></i>
-            </button>
+              <div className="accordion-body">
+                <div className="p">
+                  Calories: {Math.round(recipe.recipe.calories)}
+                </div>
+                <div
+                  className="p"
+                  key={`${recipe.recipe.calories}-${recipe.recipe.totalWeight}`}
+                >
+                  {recipe.recipe.healthLabels.join(", ")}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div className="d-flex justify-content-end card-footer text-body-secondary">
+          <button
+            type="button"
+            className={
+              " border border-0 btn " +
+              (isFav
+                ? "btn-light btn-md p-1 px-3 py-2 me-1"
+                : "btn-outline-light btn-md p-1 px-3 py-2 me-1")
+            }
+            onClick={() => toggleFavourites(recipe.recipe)}
+          >
+            <i className="fa-regular fa-heart"></i>
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
