@@ -119,7 +119,7 @@ export const Navbar = ({ onSearchTermChange }) => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <i class="fa-regular fa-user"></i>
+                    <i className="fa-regular fa-user"></i>
                   </button>
                   <ul className="dropdown-menu pe-3">
                     <li>
