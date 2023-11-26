@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  console.log(backendUrl);
+  // console.log(backendUrl);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     uusername: "",

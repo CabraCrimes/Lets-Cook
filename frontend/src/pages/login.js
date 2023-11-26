@@ -5,7 +5,6 @@ import "../styles/Home.css";
 
 const Login = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  console.log(backendUrl);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     uemail: "",
@@ -30,10 +29,9 @@ const Login = () => {
           password: userInfo.upassword,
         }),
       });
-      console.log("response", response);
       if (response.ok) {
         const data = await response.json();
-        console.log("data:", data);
+        // console.log("data:", data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("id", JSON.stringify(data.id));

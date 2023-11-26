@@ -16,9 +16,7 @@ export const Navbar = ({ onSearchTermChange }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
     if (searchTerm.trim() !== "") {
-      console.log("search term", searchTerm);
       try {
-        // const data = await fetchRecipes(searchTerm);
         onSearchTermChange(searchTerm);
         // console.log("Nav handleSearch Test", data);
       } catch (error) {
@@ -27,7 +25,7 @@ export const Navbar = ({ onSearchTermChange }) => {
     }
   };
 
-  // Remove quotes etc from the begging and end of strings
+  // Remove quotes from the begging and end of strings
   // const removeQuotes = (string) => {
   //   if (string && string.startsWith('"') && string.endsWith('"')) {
   //     return string.slice(0, -1);

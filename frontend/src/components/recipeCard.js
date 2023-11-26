@@ -47,12 +47,12 @@ export const RecipeCard = (recipe) => {
           }
         );
         if (response.ok) {
-          console.log("Favorite saved!");
+          // console.log("Favorite saved!");
         } else {
           console.error("Failed to save favourite");
         }
       } else {
-        console.log("Recipe data is empty");
+        // console.log("Recipe data is empty");
       }
     } catch (error) {
       console.error("Error fetching favourites: ", error);
@@ -61,14 +61,14 @@ export const RecipeCard = (recipe) => {
 
   const toggleFavourites = (recipe) => {
     if (isFav) {
-      console.log("TRUE: Remove Favourites");
+      // console.log("TRUE: Remove Favourites");
       //Remove favourite
       setFavourites((prevFav) =>
         prevFav.filter((filterFav) => filterFav !== recipe)
       );
     } else {
       //Add favourites
-      console.log("FALSE: Add Favourites");
+      // console.log("FALSE: Add Favourites");
       setFavourites((prevFav) => [...prevFav, recipe]);
       saveFavourites(recipe);
     }
@@ -88,9 +88,9 @@ export const RecipeCard = (recipe) => {
   const cuisineName = capitalize(cuisineNameList);
   const accordionId = `accordionPanelsStayOpen${recipe.index}`;
 
-  const test = JSON.stringify(favourites);
-  console.log("Favourites!", test.length);
-  console.log("IsFav", isFav);
+  // const test = JSON.stringify(favourites);
+  // console.log("Favourites!", test.length);
+  // console.log("IsFav", isFav);
 
   return (
     <div>

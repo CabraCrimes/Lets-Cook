@@ -9,30 +9,29 @@ import { backendFavouritesApi } from "../api/backEndFavouritesApi";
 function Favourites() {
   const [searchTerm, setSearchTerm] = useState("");
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
-  const [filterFavouriteRecipes, setFilterFavouriteRecipes] = useState([]);
+  // const [filterFavouriteRecipes, setFilterFavouriteRecipes] = useState([]);
   const location = useLocation();
 
-  
   const handleSearchTermChange = (newSearchTermFromNav) => {
     setSearchTerm(newSearchTermFromNav);
   };
-  console.log(searchTerm)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("search term:", searchTerm);
+        // console.log("search term:", searchTerm);
         const localData = await backendFavouritesApi();
         const parsedFavourites = localData.favourite.map((e) => {
           const parsJSON = JSON.parse(e.favourite_JSON);
           return { id: e.id, ...parsJSON };
         });
-        
+
         setFavouriteRecipes(() => [...parsedFavourites]);
-        if(searchTerm){
+        if (searchTerm) {
           const filterFavourite = () => {
-            const filter = parsedFavourites.filter((item) => [...item.label].some(char => searchTerm.includes(char)));
+            const filter = parsedFavourites.filter((item) =>
+              [...item.label].some((char) => searchTerm.includes(char))
+            );
             setFavouriteRecipes(filter);
-            console.log("Reached")
           };
           filterFavourite();
         }
@@ -43,14 +42,12 @@ function Favourites() {
     fetchData();
   }, [location.pathname, searchTerm]);
 
-
-console.log("favouriteRecipes", favouriteRecipes)
   return (
     <div className="background min-vh-100">
       <Navbar onSearchTermChange={handleSearchTermChange} />
       <div className="container container-with-background">
         <div className="d-grid gap-4 d-flex flex-wrap mt-5">
-           {!favouriteRecipes.length
+          {!favouriteRecipes.length
             ? "Add a favourite.."
             : favouriteRecipes.map((newRecipe, index) => {
                 return (
