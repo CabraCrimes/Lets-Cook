@@ -9,7 +9,7 @@ Let's Cook is a dynamic web application that facilitates the process of discover
 - Installation
 - Usage
 - API Integration
-- Screenshots
+- Video Demo
 
 ## Features 
 Ingredient-Based Search: Users can input the ingredients they have on hand, and Let's Cook will provide a list of relevant recipes.
@@ -33,10 +33,8 @@ Access the application in your web browser at http://localhost:3000
 API Integration
 Let's Cook seamlessly integrates with the Edamam API to fetch recipe data based on user inputs. The Flask backend serves as a bridge between the frontend and the API, allowing for efficient data retrieval and display.
 
-## Screenshots
+## Video Demo
+You can watch a demo of the application in the video below:
 
-### Screenshot 1
-![alt text](frontend/src/assets/Screen_Shots/Screenshot_Lets_Cook_1.png)
+[![Watch the video](https://img.youtube.com/vi/Z4FarMm41-E/0.jpg)](https://youtu.be/Z4FarMm41-E?si=OFYGj1rmI6nC6JHX)
 
-### Screenshot 2
-![alt text](frontend/src/assets/Screen_Shots/Screensot_Lets_Cook_2.png)
